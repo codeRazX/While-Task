@@ -1,0 +1,42 @@
+@use "variables" as v;
+@use "mixin" as m;
+
+
+.header{
+    padding: v.$margin 0;
+    background-color: #1a1a1a;
+
+    &__grid{
+        @include m.flex(space-between);
+    }
+    &__heading{
+        
+        line-height: .8;
+    
+        h1{
+            background:linear-gradient(to right, #fff 0%, #fff 40%, #42fdaf 100%);
+            background-clip: text;          
+            color: transparent;   
+        }
+        h1 span.header__heading--modify{
+            display: block;
+           
+            & span{
+                font-size: 8rem;
+            }
+        }
+
+        &::after {
+            content: "";
+            width: 120%;
+            height: .2rem;
+            margin-top: -.8rem;
+            display: block;
+            box-shadow: 
+            5px 2px 0 0 #fff, 
+            10px 4px 0 0 #fff, 
+            15px 6px 0 0 #fff,
+        }
+    }
+
+}

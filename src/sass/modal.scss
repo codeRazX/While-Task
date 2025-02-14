@@ -1,0 +1,134 @@
+@use "variables" as v;
+@use "mixin" as m;
+.modal{
+    @include m.modal(60rem,80rem,2rem);
+   
+    h2{
+        color: #0e5035;
+        text-align: center;
+        margin: 1rem 0 3rem 0; 
+        border-bottom: 1px dashed #0e5035;
+        padding-bottom: 1rem;
+    }
+
+    &__close{
+        position: absolute;
+        top: -.5rem;
+        right: .5rem;
+        font-weight: bold;
+        font-size: 3rem;
+        font-family: v.$fontTitle;
+        cursor: pointer;
+        color: #0e5035;
+    }
+
+    .form{
+       
+        &__field{
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1.5rem;
+            gap: .5rem;
+
+           input,textarea, select{
+            padding: 1rem;
+            font-size: 1.6rem;
+            outline: none;
+            border: 1px solid #e1e1e1;
+            border-radius: 5px;
+            font-family: v.$fontTitle;
+            font-weight: bold;
+            color: v.$colorText;
+            
+
+            &::placeholder{
+                color: #727171;
+            }
+            
+            &:focus{
+                border: 1px solid v.$colorWidget;
+            }
+           }
+           input[type="date"]::-webkit-calendar-picker-indicator,
+           input[type="time"]::-webkit-calendar-picker-indicator{
+            background-color: v.$colorWidget;
+            border-radius: 5px;
+          }
+            label{
+                font-weight: bold;
+                color: #0e5035;
+            }
+           
+            select, option{
+                color: v.$colorText;
+                font-weight: bold;
+            }
+            textarea{
+                height: 6rem;
+                resize: none;
+
+            }
+
+            &-modify{
+                
+                &__label{
+                    font-weight: bold;
+                    color: #0e5035;
+                    cursor:default;
+                }
+               
+            }
+            &__radio{
+                display: flex;
+                gap: 2rem;
+                align-items: center;
+
+                &-block{
+                    label{
+                        font-weight: bold;
+                        font-size: 1.6rem;
+                        margin-right: .5rem;
+                        color: v.$colorText;
+                        font-family: v.$fontTitle;
+                    
+                    }
+                }
+            }
+
+            &__duedate{
+                @include m.flex(flex-start,2rem);
+
+                input{
+                    flex: 1;
+                }
+            }
+        }
+
+        button{
+            margin-top: 1rem;
+            width: 100%;
+            
+        }
+    
+       
+    }
+
+}
+
+.overlay{
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0 0 0 /.5);
+    opacity: 0;
+    animation: appear 500ms forwards ease-in-out;
+    z-index: 500;
+
+    &__close{
+        animation: dissapear 200ms forwards ease-in-out;
+    }
+}
+

@@ -1,0 +1,265 @@
+@use "variables" as v;
+@use "mixin" as m;
+
+
+.task{
+    margin-top: 3rem;
+    padding: 3rem 2rem;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 4px v.$primaryColor;
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color,transform 300ms ease;
+    height: 27rem;
+    max-height: 27rem;
+    transform-origin: top;
+   
+    //Cambiar el height si añaod las fechas
+   
+    &:hover{
+    
+        background-color: #e7e7e7;
+        
+    }
+
+    &:hover .task__date__duedate__field__time:before{
+        background-color: #6d6d6d27;
+    }
+    &__priority{
+        position: absolute;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-family: v.$fontHeaders;
+        font-size: 1.4rem;
+        top: 0;
+        left: 0;
+        padding:.2rem 2rem;
+        width: 100%;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+
+    &__info{
+       
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+
+        p{
+            font-size: 1.5rem;
+            font-weight: bold;
+            font-family: v.$fontHeaders;
+            color: v.$colorText; 
+        }
+
+        p span{
+            font-weight: normal;
+            font-family: v.$primaryFont;
+            font-size: 1.4rem;
+            display: block;
+            margin-top: .2rem;
+            
+        }
+    }
+
+    &__notes{
+      
+        border-radius: 5px;
+        width: 90%;
+        max-width: 90%;
+        &__container{
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 1rem;
+            border: 1px solid #797979;
+            
+            img{
+                height: 4rem;
+                width: 4rem;
+                &:hover{          
+                    box-shadow: 0 0 2px #000;
+                    border-radius: 50%;
+                    transform: scale(1.05);
+                }
+            }
+        }
+    }
+    
+    .note{
+        height: 4rem;
+        width: 4rem;
+        @include m.flex(center);
+        background-color: v.$primaryColor;
+        color: #fff;
+        font-family: v.$fontTitle;
+       
+        &:hover{          
+            background-color: v.$primaryColor;
+            transform: scale(1.05);
+            
+        }
+
+        span{
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+    }
+
+    &__modal{
+        position: absolute;
+        bottom: -1rem;
+        right: 0;
+        z-index: 25;
+        transition: transform 200ms linear;
+        &:hover{
+            transform: scale(1.05);
+        }
+        img{
+            width: 4rem;
+        }
+        
+        &__menu{
+            position: absolute;
+            background-color: #fff;
+            top: 80%;
+            right: 50%;
+            width: 20rem;
+            max-width: 20rem;
+            padding: 1rem;
+            box-shadow: 0 0 5px #000;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 50;
+            &__option{
+                @include m.flex(flex-start,.5rem);
+                transition: background-color 300ms ease;
+            
+                img{
+                    width: 2.5rem;
+                }
+
+                p{
+                    font-size: 1.6rem;
+                    transition: background-color 300ms ease;
+                    color: v.$colorText;
+                }
+
+                &:hover{
+                    background-color: v.$primaryColor;
+                    border-radius: 2px;
+                    p{
+                        color: #fff;
+                    }
+                
+                }
+            }
+        }
+    }
+
+
+    &__completed {
+        background-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.8) 100%);
+       
+        
+        &:hover {
+            background-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.4) 100%);
+        }
+
+        &__date{
+            text-align: center;
+            color: #fff;
+            font-family: v.$fontHeaders;
+            font-size: 1.8rem;
+            text-shadow: 0 0 10px #000;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            z-index: 1;
+        }
+
+        span{
+            display: block;
+        }
+    }
+
+    &__anim{
+        animation: appearTask 1s ease-in-out;
+    }
+
+    &__remove{
+        animation: deleteTask .5s linear forwards;
+    }
+
+    
+    &__date{
+        @include m.flex(space-between);
+        width: 100%;
+        &__duedate{
+            @include m.flex(center,1rem);
+           margin-top: 1rem;
+           position: relative;
+           
+         
+         
+            &__field{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+              
+                &__time{
+                    position: relative;
+                    font-weight: bold;
+                    font-family: v.$primaryFont;
+                    font-size: 1.4rem;
+                    color: v.$colorText; 
+                    display: inline-flex;
+                    justify-content: center;
+                    align-items: center;
+                    min-width: 2.5em;
+                    min-height: 2.5em;
+                    padding-right: .2rem;
+                    &:hover{
+                        transform: scale(1.1);
+                    }
+                    &:before{
+                        content: "";
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                        border:4px solid v.$colorWidget;
+                        border-left: none;
+                        border-bottom: none;
+                        position: absolute;
+                        background-color: #a1a1a127;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%,-50%);
+                        border-radius: 50%;
+                        color: inherit;
+                    }
+            }
+
+            p{
+                font-family: v.$fontTitle;
+                font-size: 1.2rem;
+                margin-top: .5rem;
+                
+            }
+        }
+    }
+
+}
+    
+}
+
+
+

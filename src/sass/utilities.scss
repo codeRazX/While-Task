@@ -1,0 +1,130 @@
+@use "variables" as v;
+
+.active-menu{
+    display: flex;
+}
+.disabled{
+    display: none;
+}
+.active{
+    display: block;
+}
+.btn__modify__status{
+    background-color: #ffc400;
+    
+    &:hover{
+        background-color: #aa7d02;
+    }
+}
+.btn__priority__hight{
+    background-color: #fc412c;
+
+    &:hover{
+        background-color: #bb281e;
+    }
+}
+.btn__priority__medium{
+    background-color: #ffae19;
+
+    &:hover{
+        background-color: #e6a900;
+    }
+}
+.btn__priority__low{
+    background-color: #2196F3;
+
+    &:hover{
+        background-color: #106db9;
+    }
+}
+.modal__anim__close{
+    animation: dissapearModal 300ms ease-in-out;
+}
+.default__text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-family: v.$fontTitle;
+    font-weight: bold;
+    font-size: 2.2rem;
+    opacity: 0;
+    animation: appear 500ms forwards ease-in-out;
+}
+@keyframes appear{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+@keyframes expand{
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+       }
+    100%{
+        transform: translate(-50%, -50%) scale(1);
+      }
+}
+
+@keyframes appearTask {
+    0% {
+        background-color: #fff;
+        transform: scaleY(0);
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+    50% {
+        background-color: #afaeae;
+        transform: scaleY(1);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    100% {
+        background-color: #fff;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+}
+
+@keyframes deleteTask {
+    0% {
+        opacity: 1;
+        transform: scaleY(1);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scaleY(0.5);
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+    100% {
+        opacity: 0;
+        transform: scaleY(0);
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    }
+}
+
+@keyframes dissapearModal{
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+}
+
+@keyframes dissapear{
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+
+
+
+

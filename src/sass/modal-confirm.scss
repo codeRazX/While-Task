@@ -1,0 +1,53 @@
+@use "variables" as v;
+@use "mixin" as m;
+
+.modal__confirm{
+    @include m.modal(50rem,15rem,2rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+   
+    border-top: 5px solid v.$colorWidget;
+    p{
+        text-align: center;
+        font-family: v.$fontHeaders;
+        font-size: 2.2rem;
+        
+    }
+    &__btn{
+        padding-top: 2rem;
+        @include m.flex(center,2rem);
+
+        button{
+            padding: 1rem;
+            border-radius: 5px;
+            width: 14rem;
+            color: #fff;
+            text-shadow: 0 0 3px #000;
+        }
+
+        &__yes{
+            background-color: v.$colorBtnConfirm;
+
+            &:hover{
+                background-color: #106db9;
+            }
+        }
+        &__cancel{
+            background-color: v.$colorBtnCancel;
+            
+            &:hover{
+                background-color: #bb281e;
+            }
+        }
+    }
+
+    &__close{
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin:0 .5rem;
+        font-family: v.$fontHeaders;
+        cursor: pointer;
+    }
+}

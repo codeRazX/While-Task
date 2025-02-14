@@ -1,0 +1,45 @@
+@use "variables" as v;
+@use "mixin" as m;
+
+
+.board{
+
+    margin-top: v.$margin * 2;
+    height: auto;
+    padding-bottom: 50rem;
+    &__container{
+        display: grid;
+        grid-template-columns: repeat(3,40rem);
+        gap: 2rem;
+        
+    }
+    &__pending,
+    &__progress,
+    &__completed{
+
+        &__heading{
+            padding: 1rem;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px v.$primaryColor;
+
+            h3{
+                color: v.$primaryColor;
+                text-align: center;
+            }
+        }
+
+        
+    }
+    &__pending__heading{
+        border-bottom: 1rem solid #2196F3;
+    }
+    &__progress__heading{
+        border-bottom: 1rem solid #FFEB3B;
+      
+    }
+    &__completed__heading{
+        border-bottom: 1rem solid v.$colorWidget;
+    }
+
+}
+

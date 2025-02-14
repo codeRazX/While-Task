@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>While Task</title>
+</head>
+<body>
+  
+    <div id="overlay" class="overlay"></div>
+   
+    <div id="modal" class="modal">
+
+        <h2>Add your task</h2>
+        
+        <form autocomplete="off" id="form" class="form">
+            <div class="form__field">
+                <label for="title">Title*</label>
+                <input type="text" id="title" name="title" placeholder="Enter the title">
+            </div>
+
+            <div class="form__field">
+                <label for="description">Description*</label>
+                <textarea type="text" id="description" name="description" placeholder="Enter the description"></textarea>
+            </div>
+
+            <div class="form__field">
+                <label for="duedate">Duedate</label>
+                <div class="form__field__duedate">
+                    <input type="date" id="duedate" name="duedate">
+                    <input type="time" id="time-duedate" name="time-duedate">
+                </div>
+                
+            </div>
+
+            <div class="form__field form__field-modify">
+                <p class="form__field-modify__label">Choose the priority*</p>
+
+                <div class="form__field__radio">
+                    <div class="form__field__radio-block">
+                        <label for="high">High</label>
+                        <input value="1" type="radio" id="high" name="priority">
+                    </div>
+                    <div class="form__field__radio-block">
+                        <label for="medium">Medium</label>
+                        <input value="2" type="radio" id="medium" name="priority">
+                    </div>
+                    <div class="form__field__radio-block">
+                        <label for="low">Low</label>
+                        <input value="3" type="radio" id="low" name="priority">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form__field">
+                <label for="status">Status</label>
+                <select name="status" id="status">
+                    <option value="" disabled selected>--Select status--</option>
+                    <option value="pending" >Pending</option>
+                    <option value="progress">In Progress</option>
+                </select>
+               
+            </div>
+
+             <div class="form__field">
+                    <label for="note">Do you want to add any note?</label>
+                   <textarea name="note" id="note" placeholder="Enter a note"></textarea>
+            </div>
+
+            <button class="btn">Add Task</button>
+        </form>
+
+        <span class="modal__close">X</span>
+    </div>
+
+
+
+    <header class="header">
+        <div class="container header__grid">
+            <div class="header__heading">
+                <h1>While<span class="header__heading--modify"><span>T</span>ask</span></h1>
+            </div>
+            <nav class="header__nav">
+                <button id="add-btn" class="btn">Add Task</button>
+            </nav>
+        </div>
+    </header>
+    
+   
+
+    <main class="board container">
+       
+        <div id="board-container" class="board__container">
+           
+            <div class="board__pending">
+                <div class="board__pending__heading">
+                    <h3>Pending</h3>
+                </div>
+              
+                <div id="pending" data-action="container" class="board__pending__container">
+                   
+                </div>
+            </div>
+
+            <div class="board__progress">
+                <div class="board__progress__heading">
+                    <h3>In Progress</h3>
+                </div>
+              
+                <div id="progress" data-action="container" class="board__progress__container">
+                   
+                </div>
+            </div>
+
+            <div class="board__completed">
+                <div class="board__completed__heading">
+                    <h3>Completed</h3>
+                </div>
+              
+                <div id="completed" data-action="container" class="board__completed__container">
+
+                </div>
+            </div>
+        </div>
+      
+
+        <div class="task">
+            <span class="task__priority">High</span>
+          
+            <div class="task__date">
+               <div class="task__date__current">
+
+               </div>
+                
+                <div class="task__date__duedate">
+                    <div class="task__duedate__field">
+                        <span class="task__duedate__field__time">20</span>
+                        <p>Days</p>
+                    </div>
+
+                    <div class="task__duedate__field">
+                        <span class="task__duedate__field__time">5</span>
+                        <p>Hours</p>
+                    </div>
+
+                    <div class="task__duedate__field">
+                        <span class="task__duedate__field__time">45</span>
+                        <p>Minutes</p>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="task__info">
+                
+                <p>Date Added <span>12/02/2025</span></p>
+
+                <p>Title <span>Llevar el coche al mecanico mañana, porfavor, no olvidar esta tarea,Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, architecto?</span></p>
+                <p>Descrition <span>Pues eso mañana tengo que llevar el coche al taller, creo que me va a costar bastante dinero, unos 500 euros, calculo yo mas o menos, pero de nueva cuenta el coche hay que arreglarlo, que le vamos hacer. España es asi joer &</span></p>
+
+                <div class="task__notes">
+                    <p>Notes</p>
+
+                    <div class="task__notes__container">
+                        <div class="note"><span>1</span></div>
+                        <div class="note"><span>2</span></div>
+                        <div class="note"><span>3</span></div>
+                        <div class="note"><span>4</span></div>
+                        <div class="note"><span>5</span></div>
+                        <img src="img/add.svg" alt="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="task__modal">
+                <img src="./img/context-menu.svg" alt="Icon Task">
+
+                <div class="task__modal__menu">
+                    <div class="task__modal__menu__option">
+                        <img src="img/info.svg" alt="Icon info">
+                        <p>View/Edit</p>
+                    </div>
+                    <div class="task__modal__menu__option">
+                        <img src="img/check.svg" alt="Icon info">
+                        <p>Check completed</p>
+                    </div>
+                    <div class="task__modal__menu__option">
+                        <img src="img/delete.svg" alt="Icon info">
+                        <p>Remove</p>
+                    </div>
+                    <div class="task__modal__menu__option">
+                        <img src="img/toggle-priority.svg" alt="Icon info">
+                        <p>Change Priority</p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+
+
+       
+    </main>
+
+    <div id="default-message" class="active">
+        <p class="default__text">Dashboard is empty, start by adding your first task!</p>
+    </div>
+    
+</body>
+</html>

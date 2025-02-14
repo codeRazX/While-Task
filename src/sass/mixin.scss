@@ -1,0 +1,27 @@
+
+@mixin flex($justify, $gap: 0){
+    display: flex;
+    align-items: center;
+    justify-content: $justify;
+    gap: $gap;
+}
+
+@mixin modal($widht,$height, $padding){
+    display: none;
+    position: fixed;
+    background-color: #fff;
+    width: $widht;
+    max-width: 95%;
+    height: $height;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transform-origin: center;
+    z-index: 999999;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #000;
+    padding: $padding;
+    opacity: 0;
+    animation: appear 300ms forwards ease-in-out, expand 400ms forwards ease-in-out;
+    
+}
