@@ -32,6 +32,7 @@ const task = (function(){
     }
 
     const checkRenderTime = ()=>{
+        console.log("Hola")
         isRendering = myTask.some(task => task.completedDuedate);
         if(isRendering)renderTask();
     }

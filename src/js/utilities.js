@@ -68,8 +68,8 @@ export const calculateRemainingTime = (dateString) => {
   const targetTime = targetDate.getTime(); 
   const remTime = targetTime - currentTime;
   
-  if (remTime < 0) {
-    return { days: 0, hours: 0, minutes: 0 };
+  if (remTime <= 0) {
+    return { days: 0, hours: 0, minutes: 0, seconds:0 };
   }
   
   const seconds = Math.floor(remTime / 1000);
@@ -81,17 +81,20 @@ export const calculateRemainingTime = (dateString) => {
   const totalMinutes = minutesRemaining % 60;
   const totalSeconds = seconds % 60;
   
-  // console.log(`Tiempo Restante: ${daysRemaining} días, ${totalHours} horas, ${totalMinutes} minutos, ${totalSeconds} segundos`);
+   console.log(`Tiempo Restante: ${daysRemaining} días, ${totalHours} horas, ${totalMinutes} minutos, ${totalSeconds} segundos`);
   
   return { days: daysRemaining, hours: totalHours, minutes: totalMinutes, seconds };
   
   }
 
 
-export const generateHTML = (el,clas,content)=>{
+export const generateHTML = (el,clase = "",content = "",src="",alt="",...childs)=>{
   const item = document.createElement(el);
-  item.classList.add(clas);
-  item.textContent = content;
+  if(clase)item.className = clase;
+  if(src)item.src = src;
+  if(alt)item.alt = alt;
+  if(content)item.textContent = content;
+  if(childs)item.append(...childs);
   return item;
 }
 

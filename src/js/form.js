@@ -35,7 +35,7 @@ const handleForm = (e)=>{
         duedate: variables.form.duedate.value,
         timeDuedate: variables.form["time-duedate"].value,
         status: variables.form.status.value,
-        note: variables.form.note.value.trim() ? [toUpper(toLower(variables.form.note.value.trim()))] : [],
+        note: (variables.form.note.value.trim())? [{note:toUpper(toLower(variables.form.note.value.trim())), isNew: true, id: Date.now()}] : [],
     }
     if(!validateForm(inputs))return;
    

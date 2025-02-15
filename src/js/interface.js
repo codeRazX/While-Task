@@ -24,7 +24,7 @@ const animatedCloseModal = ()=>{
         variables.form.reset();
     },300);
 }
-const animatedCloseModalConfirm = (modal)=>{
+const animatedCloseModalGeneric = (modal)=>{
     modal.classList.toggle("modal__anim__close");
     variables.overlay.classList.toggle("overlay__close");
 
@@ -38,13 +38,17 @@ const disabledOverlay = e =>{
  
     if(e.target === variables.overlay){
         const modalConfirm = document.querySelector(".modal__confirm");
+        const modalNotes= document.querySelector(".modal__notes");
 
         if(variables.modal.style.display === "block"){
             animatedCloseModal();
         }
         if(modalConfirm){
-           animatedCloseModalConfirm(modalConfirm);
+           animatedCloseModalGeneric(modalConfirm);
         }
+        if(modalNotes){
+            animatedCloseModalGeneric(modalNotes);
+         }
     }
 }
 
@@ -86,19 +90,46 @@ export const updateFormSucces = ()=>{
     defaultMessage();
 }
 
-const modalConfirm = (ask, btnText1, btnText2, callbackPrimary,callbackSecondary, clas = undefined,priority = false,refPrimaryButton = null,refSecondaryButton = null)=>{
+const modalNotes = (task)=>{
     activeEl(variables.overlay);
-    const modalElement = generateHTML("DIV","modal__confirm");
-    const askText = generateHTML("P",undefined,ask);
-    const groupBtn = generateHTML("DIV","modal__confirm__btn");
-    const btnPrimary = generateHTML("BUTTON", undefined,btnText1);
-    const btnSecondary = generateHTML("BUTTON", undefined,btnText2);
-    const btnClose = generateHTML("SPAN","modal__confirm__close","X");
+    
+    const notesCount = task.getNotes();
+    const btnClose = generateHTML("SPAN","modal__notes__close","X");
+    const title = generateHTML("P","modal__notes__text");
+    const area = generateHTML("TEXTAREA");
+    const btnSave = generateHTML("BUTTON","btn","Save Note");
+    const divBtn = generateHTML("DIV","modal__notes__btn","","","",btnSave);
+    area.placeholder = "Write your note here!";
+    title.textContent= task.getNotes()>= 1? `Currently, you have ${notesCount} notes saved. Would you like one more?` : "Currently, you don't have any notes saved. Would you like to add your first note?";
+    const modalElement = generateHTML("DIV","modal__notes","","","",btnClose,title,area,divBtn);
 
-    btnPrimary.className = "btn modal__confirm__btn__yes";
-    btnSecondary.className =`btn modal__confirm__btn__cancel ${clas}`;  
-    modalElement.append(askText,groupBtn,btnClose);
-    groupBtn.append(btnPrimary,btnSecondary);
+    btnSave.onclick = ()=>{
+        
+        if(area.value.trim() !== ""){
+            task.pushNote(area.value.trim());
+            animatedCloseModalGeneric(modalElement);
+            showMessage("notification",document.body,"Note successfully added to this task!");   
+        }
+        else{
+            showMessage("error",divBtn,"This field is requerid");
+        }
+        
+    }
+    btnClose.onclick = ()=> {
+        animatedCloseModalGeneric(modalElement);
+    }
+    document.body.appendChild(modalElement);
+}
+
+const modalConfirm = (ask, btnText1, btnText2, callbackPrimary,callbackSecondary, clas = "",priority = false,refPrimaryButton = null,refSecondaryButton = null)=>{
+    activeEl(variables.overlay);
+    
+    const askText = generateHTML("P","",ask);
+    const btnPrimary = generateHTML("BUTTON","btn modal__confirm__btn__yes",btnText1);
+    const btnSecondary = generateHTML("BUTTON",`btn modal__confirm__btn__cancel ${clas}`,btnText2);
+    const btnClose = generateHTML("SPAN","modal__confirm__close","X");
+    const groupBtn = generateHTML("DIV","modal__confirm__btn","","","",btnPrimary,btnSecondary);
+    const modalElement = generateHTML("DIV","modal__confirm","","","",askText,groupBtn,btnClose);
 
     if(priority){
         refPrimaryButton(btnPrimary);
@@ -107,18 +138,18 @@ const modalConfirm = (ask, btnText1, btnText2, callbackPrimary,callbackSecondary
   
     btnPrimary.onclick =()=> {
         callbackPrimary(btnPrimary);
-        animatedCloseModalConfirm(modalElement);
+        animatedCloseModalGeneric(modalElement);
     }
     btnSecondary.onclick = ()=> {
         callbackSecondary(btnSecondary);
-        animatedCloseModalConfirm(modalElement);
+        animatedCloseModalGeneric(modalElement);
     }
     btnClose.onclick = ()=> {
-        animatedCloseModalConfirm(modalElement);
+        animatedCloseModalGeneric(modalElement);
     }
     document.body.appendChild(modalElement);
-
 }
+
 export const clearHTML = ()=>{
     variables.containerTask.forEach(container =>{
         if(container.childElementCount >= 1){
@@ -162,7 +193,7 @@ export const renderTask = () => {
       if (task.completedDuedate) {
         const remainingTime = calculateRemainingTime(task.completedDuedate);
       
-        if (remainingTime.days === 0 && remainingTime.hours === 0 && remainingTime.minutes === 0 && remainingTime.seconds === 0) {
+        if (remainingTime.days <= 0 && remainingTime.hours <= 0 && remainingTime.minutes <= 0 && remainingTime.seconds <= 0) {
           task.status = "completed";
           task.duedate = "";
           task.timeDuedate = "";
@@ -199,7 +230,7 @@ variables.overlay.addEventListener("click",disabledOverlay);
 document.addEventListener("DOMContentLoaded",registerInit);
 
 function registerInit(){
-
+   
     defaultMessage();
     updateDate();
     contenTask.printTask();
@@ -213,7 +244,9 @@ const handleBoard = (e)=>{
 
     //HANDLE ACTIONS CONTEXT MENU
     handleContextMenu(e.target); 
-  
+    
+    //Handle notes ui
+    handleNotes(e.target);
  }
 
 const handleContextMenu = target =>{
@@ -338,5 +371,36 @@ const checkButtonPriority = (data,btn)=>{
         break;
 
     }
+}
+
+const handleNotes = (target)=>{
+    const action = target.dataset?.action || target.closest('[data-action]')?.dataset?.action || "";
+   
+    if(action && action !== "open-menu" && !target.closest(".task__modal__menu__option")){
+        const taskDOM = target.closest(".task");
+        const task = contenTask.currentTask(taskDOM.dataset.id);
+
+        if(action ==="add-note"){
+           console.log(task)
+           modalNotes(task);
+        }
+        else if(action !=="add-note"){
+            const dataID = target.closest(".task__notes__block").dataset?.id;
+
+            if(action ==="open-note"){
+                console.log("clickeando nota");
+                task.openNote(dataID);//Hacer esta funcion
+            }  
+            else if(action ==="delete-note"){
+                //El modal confirm abrir
+                console.log(task)
+                task.deleteNote(dataID);//Hacer esta funcion
+                console.log("eliminando nota");
+            }
+        }  
+        
+    }
+
+   
 }
  

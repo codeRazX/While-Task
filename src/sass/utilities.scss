@@ -51,6 +51,13 @@
     opacity: 0;
     animation: appear 500ms forwards ease-in-out;
 }
+.disabled__widget{
+    pointer-events: none;
+    opacity: .05;
+}
+.appear{
+    animation: appear 1000ms forwards ease-in-out;
+}
 @keyframes appear{
     from{
         opacity: 0;
