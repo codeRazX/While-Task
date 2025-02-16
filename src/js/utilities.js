@@ -81,7 +81,7 @@ export const calculateRemainingTime = (dateString) => {
   const totalMinutes = minutesRemaining % 60;
   const totalSeconds = seconds % 60;
   
-   console.log(`Tiempo Restante: ${daysRemaining} días, ${totalHours} horas, ${totalMinutes} minutos, ${totalSeconds} segundos`);
+  //  console.log(`Tiempo Restante: ${daysRemaining} días, ${totalHours} horas, ${totalMinutes} minutos, ${totalSeconds} segundos`);
   
   return { days: daysRemaining, hours: totalHours, minutes: totalMinutes, seconds };
   

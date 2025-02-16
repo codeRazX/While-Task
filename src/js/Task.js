@@ -14,6 +14,7 @@ import { storage } from "./storage";
 
 export default class Task{
     constructor({title,description,duedate = undefined,priority,note ="",id,date,status, dateCompleted =undefined, isNew, timeDuedate = undefined, completedDuedate=undefined, completedDate = ""}){
+
         this.title = title;
         this.description = description;
         this.duedate = duedate || toDateString(duedate);
@@ -34,14 +35,14 @@ export default class Task{
         const imgInfo = generateHTML("IMG","","",imgView,"Icon view");
         const infoView= generateHTML("P","","View/Edit");
         const menuFieldView = generateHTML("DIV","task__modal__menu__option","","","",imgInfo,infoView);
-        menuFieldView.dataset.action = "view";
+        menuFieldView.dataset.action = getVariables.actions().view;
         return menuFieldView;
     }
     menuStatus = ()=>{
         const infoStatus =generateHTML("P","","Change Status");
         const imgToggleStatus = generateHTML("IMG","","",iconStatus,"Icon Status");
         const menuFieldStatus = generateHTML("DIV","task__modal__menu__option","","","",imgToggleStatus,infoStatus);
-        menuFieldStatus.dataset.action = "switch-status";
+        menuFieldStatus.dataset.action = getVariables.actions().switchStatus;
         return menuFieldStatus;
     }
     menuPriority = ()=>{
@@ -50,7 +51,7 @@ export default class Task{
             const infoPriority =generateHTML("P","","Change Priority");
             const imgPriority = generateHTML("IMG","","",iconPriority,"Icon Priority");
             const menuFieldPriority = generateHTML("DIV","task__modal__menu__option","","","",imgPriority,infoPriority);
-            menuFieldPriority.dataset.action = "switch-priority";
+            menuFieldPriority.dataset.action = getVariables.actions().switchPriority;
             return menuFieldPriority;
         }
         return "";
@@ -60,7 +61,7 @@ export default class Task{
             const imgCompleted = generateHTML("IMG","","",imgCheck,"Icon Completed");
             const infoCompleted = generateHTML("P","","Mark as Completed");
             const menuFieldCompleted = generateHTML("DIV","task__modal__menu__option","","","",imgCompleted,infoCompleted);
-            menuFieldCompleted.dataset.action = "completed";
+            menuFieldCompleted.dataset.action = getVariables.actions().completed;
             return menuFieldCompleted;
         }
         return "";
@@ -70,8 +71,8 @@ export default class Task{
         const imgDelete = generateHTML("IMG","","",imgRemove,"Icon Remove");
         const infoDelete = generateHTML("P","","Remove");
         const menuFieldRemove = generateHTML("DIV","task__modal__menu__option","","","",imgDelete,infoDelete);
-        menuFieldRemove.dataset.action = "delete";
-       return menuFieldRemove;
+        menuFieldRemove.dataset.action = getVariables.actions().deleteTask;
+        return menuFieldRemove;
     }
     blockMenu = ()=>{
         const imgModalTask = generateHTML("IMG","","",imgMenu,"Icon Menu");
@@ -79,7 +80,7 @@ export default class Task{
         taskModalMenu.append(this.menuView(),this.menuStatus(),this.menuPriority(),this.menuCompleted(),this.menuRemove());
         taskModalMenu.classList.add("task__modal__menu","disabled");
         const taskModal = generateHTML("DIV","task__modal","","","",imgModalTask,taskModalMenu); 
-        imgModalTask.dataset.action = "open-menu";
+        imgModalTask.dataset.action = getVariables.actions().openMenu;
         return taskModal; 
     }
 
@@ -143,7 +144,7 @@ export default class Task{
         const titleNotes = generateHTML("P","","Notes");
         const notesContainer = generateHTML("DIV","task__notes__container");
         const taskNotes = generateHTML("DIV","task__notes","","","",titleNotes,notesContainer);
-        notesImg.dataset.action = "add-note";
+        notesImg.dataset.action = getVariables.actions().addNote;
         
         if(this.status ==="completed"){
             this.note.splice(0,this.note.length);
@@ -151,33 +152,35 @@ export default class Task{
         }
 
         if(this.note.length>=1){
+
             this.note.forEach((note,index) => {
                 if(index<5){
-                    const {id,isNew} = note;
                     const contentNote = generateHTML("SPAN","",index+1);
                     const notes = generateHTML("DIV","task__notes__block__note","","","",contentNote);
                     const imgDelete = generateHTML("IMG","","",iconDeleteNotes,"Icon Delete Notes");
                     const deleteNotes = generateHTML("DIV","task__notes__block__delete","","","",imgDelete);
                     const blockNote = generateHTML("DIV","task__notes__block","","","",notes,deleteNotes);
+                    note.id = index+1;
+                    blockNote.dataset.id = note.id;
+                    notes.dataset.action = getVariables.actions().openNote;
+                    deleteNotes.dataset.action =getVariables.actions().deleteNote;
 
-                    blockNote.dataset.id = id;
-                    notes.dataset.action = "open-note";
-                    deleteNotes.dataset.action ="delete-note";
-
-                    if(isNew){
+                    if(note.isNew){
                         blockNote.classList.add("appear");
                         note.isNew = false;
-                        storage.setStorage(contentTask.getTask());
                     };
-                   
                     notesContainer.appendChild(blockNote); 
-                   
                 }
                 else if(index === 5) {
-                    const more = generateHTML("IMG","icon__note__more appear","",iconMore,"Icon more notes");
+                    const more = generateHTML("IMG","icon__note__more","",iconMore,"Icon more notes");
+                    note.countNote !== this.note.length && more.classList.add("appear");
                     notesContainer.appendChild(more)
                 }
+
+                note.countNote = this.note.length;
             })
+            storage.setStorage(contentTask.getTask());
+
         }
        
         notesContainer.append(notesImg);
@@ -253,20 +256,20 @@ export default class Task{
         this.timeDuedate = "";
         this.completedDuedate = "";
         this.dateCompleted = dateNotDay();
-        contentTask.updateDataTask(contentTask.getTask());
+        contentTask.updateDataTask();
     }
 
     switchStatus= (value)=>{
         if (this.status !== value) {  
         this.status = value;
-        contentTask.updateDataTask(contentTask.getTask()); 
+        contentTask.updateDataTask(); 
         }
     }
 
     switchPriority = (value)=>{
         if(this.priority !== value) {  
         this.priority = value;
-        contentTask.updateDataTask(contentTask.getTask()); 
+        contentTask.updateDataTask(); 
         }
     }
 
@@ -286,9 +289,17 @@ export default class Task{
 
     pushNote = (input)=>{
         if(input === "")return;
-        this.note.push({note:toUpper(toLower(input)), isNew: true,id: Date.now()});
-        contentTask.updateDataTask(contentTask.getTask());
+        this.note.push({note:toUpper(toLower(input)), isNew: true});
+        contentTask.updateDataTask();
     }
+
+    deleteNote = (noteDOM)=>{
+        const filterTask = this.note.filter(note => note.id !== parseInt(noteDOM.dataset.id));
+        this.note = [...filterTask];
+        contentTask.updateDataTask();
+    }
+
+    viewNote = (noteDOM)=> this.note[this.note.findIndex(note => note.id === (parseInt(noteDOM.dataset.id)))].note;
 
     getNotes = ()=> this.note.length;
 }

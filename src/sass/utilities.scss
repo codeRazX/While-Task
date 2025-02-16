@@ -58,6 +58,9 @@
 .appear{
     animation: appear 1000ms forwards ease-in-out;
 }
+.disappear{
+    animation: dissapear 1000ms forwards ease-in-out;
+}
 @keyframes appear{
     from{
         opacity: 0;

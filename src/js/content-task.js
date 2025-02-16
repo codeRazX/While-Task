@@ -25,14 +25,14 @@ const task = (function(){
         storage.getStorage().length>= 1? myTask.splice(0,myTask.length,...storage.getStorage().map(task => new Task(task))) : myTask.splice(0,myTask.length);
     };
 
-    const updateDataTask = (array)=>{
-        storage.setStorage(array);
+    const updateDataTask = ()=>{
+        storage.setStorage(myTask);
         getUpdateTask();
         printTask();
     }
 
     const checkRenderTime = ()=>{
-        console.log("Hola")
+       
         isRendering = myTask.some(task => task.completedDuedate);
         if(isRendering)renderTask();
     }
