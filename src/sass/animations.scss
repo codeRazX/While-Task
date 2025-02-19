@@ -1,0 +1,101 @@
+@keyframes appear{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+
+@keyframes expand{
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+       }
+    100%{
+        transform: translate(-50%, -50%) scale(1);
+      }
+}
+
+
+@keyframes appearTask {
+    0% {
+        background-color: #fff;
+        transform: scaleY(0);
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+    50% {
+        background-color: #afaeae;
+        transform: scaleY(1);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    100% {
+        background-color: #fff;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+}
+
+@keyframes appearNote {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+        background-color: #f0f0f0;
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+        padding: 0;
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+        background-color: #e6e6e6;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 1rem;
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        background-color: #fff;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        padding: 0;
+    }
+}
+
+@keyframes deleteTask {
+    0% {
+        opacity: 1;
+        transform: scaleY(1);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scaleY(0.5);
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+    100% {
+        opacity: 0;
+        transform: scaleY(0);
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    }
+}
+
+
+@keyframes dissapearModal{
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+}
+
+
+@keyframes dissapear{
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+

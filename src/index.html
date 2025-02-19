@@ -75,6 +75,90 @@
 
     <div id="modal-edit" class="modal__edit">
 
+        <form id="form__edit" class="form__edit">
+
+            <fieldset>
+                <legend>Task</legend>
+
+                <div class="form__edit__field">
+
+                    <p class="form__edit__property">Date Added</p>
+                    <input id="edit-date" class="form__edit__value form__edit__value__date"></input>
+
+                </div>
+
+                <div class="form__edit__field">
+                    <p class="form__edit__property" for="edit-duedate">DueDate</p>
+
+                    <div class="form__edit__field__duedate">
+
+                        <input class="form__edit__value" type="date" name="edit-duedate" id="edit-duedate">
+
+                        <input class="form__edit__value" type="time" name="edit-timeDuedate" id="edit-timeDuedate">
+
+                        <img class="form__edit__delete__duedate disabled" src="./img/delete.svg" alt="Icon Delete Duedate">
+                    </div>
+                </div>
+
+                <div class="form__edit__field">
+
+                    <label for="edit-status" class="form__edit__property">Status</label>
+                    <div class="form__edit__field__status">
+
+                        <select class="form__edit__value form__edit__value__select" name="edit-status" id="edit-status">
+                            <option value="pending">Pending</option>
+                            <option value="progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+
+                        <span id="edit-dateCompleted" class="form__edit__value  disabled"></span>
+                    </div>
+                </div>
+
+                <div class="form__edit__field">
+
+                    <label for="edit-priority" class="form__edit__property">Priority</label>
+
+                    <select class="form__edit__value form__edit__value__select" name="edit-priority" id="edit-priority">
+                        <option value="1">High</option>
+                        <option value="2">Medium</option>
+                        <option value="3">Low</option>
+                    </select>
+
+                </div>
+
+                <div class="form__edit__field">
+
+                    <label for="edit-title" class="form__edit__property">Title</label>
+                    <textarea class="form__edit__value" name="edit-title" id="edit-title"></textarea>
+
+                </div>
+
+                <div class="form__edit__field">
+                    <label for="edit-description" class="form__edit__property">Description</label>
+                    <textarea class="form__edit__value" name="edit-description" id="edit-description"></textarea>
+                </div>
+
+                <div class="form__edit__field">
+                    <div class="form__edit__field__notes__head">
+                        <p class="form__edit__property">Notes</p>
+                        <img id="add-notes-edit" class="form__edit__notes__icon" src="./img/add-notes.svg" alt="Icon Add Notes Edit">
+                    </div>
+
+                    <div id="edit-container-notes" class="form__edit__field__notes">
+                       
+
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+
+        <div class="form__edit__btn">
+            <p id="edit__default__message"></p>
+            <button id="edit-submit" class="btn">Save Changes</button>
+        </div>
+
+        <span class="modal__close">X</span>
     </div>
 
 
@@ -125,84 +209,6 @@
                 </div>
             </div>
         </div>
-      
-
-        <!-- <div class="task">
-            <span class="task__priority">High</span>
-          
-            <div class="task__date">
-               <div class="task__date__current">
-
-               </div>
-                
-                <div class="task__date__duedate">
-                    <div class="task__duedate__field">
-                        <span class="task__duedate__field__time">20</span>
-                        <p>Days</p>
-                    </div>
-
-                    <div class="task__duedate__field">
-                        <span class="task__duedate__field__time">5</span>
-                        <p>Hours</p>
-                    </div>
-
-                    <div class="task__duedate__field">
-                        <span class="task__duedate__field__time">45</span>
-                        <p>Minutes</p>
-                    </div>
-                </div>
-            </div>
-            
-            
-            <div class="task__info">
-                
-                <p>Date Added <span>12/02/2025</span></p>
-
-                <p>Title <span>Llevar el coche al mecanico mañana, porfavor, no olvidar esta tarea,Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, architecto?</span></p>
-                <p>Descrition <span>Pues eso mañana tengo que llevar el coche al taller, creo que me va a costar bastante dinero, unos 500 euros, calculo yo mas o menos, pero de nueva cuenta el coche hay que arreglarlo, que le vamos hacer. España es asi joer &</span></p>
-
-                <div class="task__notes">
-                    <p>Notes</p>
-
-                    <div class="task__notes__container">
-                        <div class="note"><span>1</span></div>
-                        <div class="note"><span>2</span></div>
-                        <div class="note"><span>3</span></div>
-                        <div class="note"><span>4</span></div>
-                        <div class="note"><span>5</span></div>
-                        <img src="img/add-notes.svg" alt="">
-                    </div>
-                </div>
-            </div>
-
-            <div class="task__modal">
-                <img src="./img/context-menu.svg" alt="Icon Task">
-
-                <div class="task__modal__menu">
-                    <div class="task__modal__menu__option">
-                        <img src="img/info.svg" alt="Icon info">
-                        <p>View/Edit</p>
-                    </div>
-                    <div class="task__modal__menu__option">
-                        <img src="img/check.svg" alt="Icon info">
-                        <p>Check completed</p>
-                    </div>
-                    <div class="task__modal__menu__option">
-                        <img src="img/delete.svg" alt="Icon info">
-                        <p>Remove</p>
-                    </div>
-                    <div class="task__modal__menu__option">
-                        <img src="img/toggle-priority.svg" alt="Icon info">
-                        <p>Change Priority</p>
-                    </div>
-                </div>
-            </div>
-            
-        </div> -->
-
-
-
-       
     </main>
 
     <div id="default-message" class="active">

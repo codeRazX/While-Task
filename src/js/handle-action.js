@@ -1,7 +1,8 @@
-import { showMessage,defaultMessage } from "./interface";
-import { toUpper,replaceClass } from "./utilities";
+import { showMessage,defaultMessage,editStyleStatus } from "./interface";
+import { toUpper,replaceClass,activeEl } from "./utilities";
 import variables from "./variables";
-
+import {loadTask} from "./form-edit";
+import eventHandle from "./event-handle";
 
 const actions = (()=>{
 
@@ -55,8 +56,13 @@ const actions = (()=>{
             }
         },
 
-        view: ()=>{
-            console.log("abriendo modal edit");
+        view: ({selectedTask})=>{
+            variables.modalEdit.dataset.task = selectedTask.id;
+            activeEl(variables.modalEdit);
+            activeEl(variables.overlay);
+            editStyleStatus(selectedTask.status);
+            loadTask();
+            eventHandle.event.registerEventsEdit();
         },
 
         completed: ({modalConfirm,task,selectedTask}) => {

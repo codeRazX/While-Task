@@ -1,6 +1,61 @@
+import { showMessage } from "./interface";
 
 export const toUpper = (el)=> el.charAt(0).toUpperCase() + el.slice(1);
-export const toLower = el => el.toLowerCase();
+
+export const activeEl = el => el.style.display = "block";
+
+export const desactivedEl = el => el.style.display = "none";
+
+export const replaceClass = (el,currentClass,newClass) => el.classList.replace(currentClass,newClass);
+
+export const disabledInputs = inputs => inputs.forEach(input => input.classList.add("disabled__input"));
+
+export const cutText = (text,max, edit = false,container = "") =>{
+  if(text.length >= max){
+    if(edit)
+    {
+    showMessage("error",container,"Maximum allowed characters");
+    return text.slice(0,max).trim();
+    }
+    return text.slice(0,max).trim() + "...";
+    
+  }
+  return text;
+}
+
+export const adjustHeight = (el)=>{
+  el.value.length > 100? el.style.height = "auto": el.style.height = "2rem";
+  el.style.height =el.scrollHeight + 'px';
+}
+
+export const scrollToTarget = (target)=> target.scrollIntoView({behavior: "smooth",block: "center"});
+
+export const generateHTML = (el,clase = "",content = "",src="",alt="",...childs)=>{
+  const item = document.createElement(el);
+  if(clase)item.className = clase;
+  if(src)item.src = src;
+  if(alt)item.alt = alt;
+  if(content)item.textContent = content;
+  if(childs)item.append(...childs);
+  return item;
+}
+
+export const clearHTML = (item, edit = false)=>{
+  if(!edit){
+    item.forEach(container =>{
+      if(container.childElementCount >= 1){
+          while(container.firstChild){
+              container.removeChild(container.firstChild);
+          }
+      }
+  })
+  }else{
+    while(item.firstChild){
+      item.removeChild(item.firstChild);
+  }
+  }
+
+}
 
 
 export const currentDate = ()=>{
@@ -23,7 +78,6 @@ export const currentDate = ()=>{
       const finalDate = `${formattedDate} - ${formattedTime}`;
       return toUpper(finalDate);
 }
-
 export const toDateString = (dateString)=>{
   if(!dateString)return;
   const date = new Date(dateString);
@@ -36,7 +90,6 @@ export const toDateString = (dateString)=>{
 
     return formattedDate;
 }
-
 export const dateNotDay = ()=>{
   const date = new Date();
    
@@ -48,8 +101,6 @@ export const dateNotDay = ()=>{
    
     return formattedDate;
 }
-
-
 export const calculateRemainingTime = (dateString) => {
   if (!dateString) return;
 
@@ -81,31 +132,18 @@ export const calculateRemainingTime = (dateString) => {
   const totalMinutes = minutesRemaining % 60;
   const totalSeconds = seconds % 60;
   
-  //  console.log(`Tiempo Restante: ${daysRemaining} días, ${totalHours} horas, ${totalMinutes} minutos, ${totalSeconds} segundos`);
+  //console.log(`Tiempo Restante: ${daysRemaining} días, ${totalHours} horas, ${totalMinutes} minutos, ${totalSeconds} segundos`);
   
-  return { days: daysRemaining, hours: totalHours, minutes: totalMinutes, seconds };
+  return { days: daysRemaining, hours: totalHours, minutes: totalMinutes, seconds:totalSeconds };
   
-  }
-
-
-export const generateHTML = (el,clase = "",content = "",src="",alt="",...childs)=>{
-  const item = document.createElement(el);
-  if(clase)item.className = clase;
-  if(src)item.src = src;
-  if(alt)item.alt = alt;
-  if(content)item.textContent = content;
-  if(childs)item.append(...childs);
-  return item;
 }
 
-export const cutText = (text,max) =>{
- 
-  if(text.length >= max){
-    return text.slice(0,max) + "...";
-  }
-  return text;
-}
 
-export const activeEl = el => el.style.display = "block";
-export const desactivedEl = el => el.style.display = "none";
-export const replaceClass = (el,currentClass,newClass) => el.classList.replace(currentClass,newClass);
+
+
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-import { generateHTML, toDateString, cutText, currentDate, calculateRemainingTime,dateNotDay,toUpper,toLower } from "./utilities";
+import { generateHTML, toDateString, cutText, currentDate, calculateRemainingTime,dateNotDay,toUpper, scrollToTarget } from "./utilities";
 import getVariables from "./variables";
 import imgMenu from "../img/context-menu.svg";
 import imgView from "../img/info.svg";
@@ -13,7 +13,7 @@ import iconDeleteNotes from "../img/delete-notes.svg";
 import { storage } from "./storage";
 
 export default class Task{
-    constructor({title,description,duedate = undefined,priority,note ="",id,date,status, dateCompleted =undefined, isNew, timeDuedate = undefined, completedDuedate=undefined, completedDate = ""}){
+    constructor({title,description,duedate = undefined,priority,note ="",id,date,status, dateCompleted =undefined, isNew, timeDuedate = undefined, completedDuedate=undefined, sortDate = ""}){
 
         this.title = title;
         this.description = description;
@@ -27,7 +27,7 @@ export default class Task{
         this.timeDuedate = timeDuedate;
         this.isNew = (isNew !== undefined) ? isNew : true; 
         this.completedDuedate = completedDuedate || (duedate && timeDuedate ? `${duedate} ${timeDuedate}` : duedate || timeDuedate);   
-        this.completedDate = completedDate || new Date();
+        this.sortDate = sortDate || new Date();
     }
     
 
@@ -130,12 +130,12 @@ export default class Task{
         return blockDates;
     }
     subBlockTitle = ()=>{
-     const contentTitle = generateHTML("SPAN","",cutText(this.title,getVariables.maxLength()));
+     const contentTitle = generateHTML("SPAN","",cutText(this.title,getVariables.maxLengthViewport()));
      const title = generateHTML("P","","Title","","",contentTitle);
      return title;
     }
     subBlockDescription = ()=>{
-        const contentDescription = generateHTML("SPAN","",cutText(this.description,getVariables.maxLength()));
+        const contentDescription = generateHTML("SPAN","",cutText(this.description,getVariables.maxLengthViewport()));
         const description = generateHTML("P","","Description","","",contentDescription);
         return description;
     }
@@ -226,7 +226,7 @@ export default class Task{
     create = ()=>{
         const task = generateHTML("DIV","task","","","",this.priorityEL(),this.completedResults(),this.blockInfo(),this.blockMenu());
         task.dataset.id = this.id;
-        this.status === "completed" && task.classList.add("task__completed");
+        this.logicPropertiesCompleted(task);
     
         getVariables.containerTask.forEach(container => {
             if(container.id === this.status){
@@ -236,6 +236,7 @@ export default class Task{
 
         if(this.isNew){
             task.classList.add("task__anim");
+            scrollToTarget(task);
             this.isNew = false;
             setTimeout(()=>task.classList.remove("task__anim"),500);
             storage.setStorage(contentTask.getTask());
@@ -250,17 +251,29 @@ export default class Task{
         contentTask.getUpdateTask();
     }
 
+    edit = (data)=>{
+        if(!data)return;
+       
+        for(const prop in data){
+            const propUpdate = prop.split("-")[1];
+           
+            if(this.hasOwnProperty(propUpdate) && propUpdate !== "date"){
+               this[propUpdate] = data[prop];
+            }
+        }
+        contentTask.updateDataTask(); 
+    }
+    
     markAsCompleted= ()=>{
         this.status = "completed";
-        this.duedate = "";
-        this.timeDuedate = "";
-        this.completedDuedate = "";
         this.dateCompleted = dateNotDay();
         contentTask.updateDataTask();
     }
 
+    
     switchStatus= (value)=>{
         if (this.status !== value) {  
+        
         this.status = value;
         contentTask.updateDataTask(); 
         }
@@ -289,7 +302,7 @@ export default class Task{
 
     pushNote = (input)=>{
         if(input === "")return;
-        this.note.push({note:toUpper(toLower(input)), isNew: true});
+        this.note.push({note:toUpper(input), isNew: true});
         contentTask.updateDataTask();
     }
 
@@ -302,4 +315,16 @@ export default class Task{
     viewNote = (noteDOM)=> this.note[this.note.findIndex(note => note.id === (parseInt(noteDOM.dataset.id)))].note;
 
     getNotes = ()=> this.note.length;
+
+    logicPropertiesCompleted = (task)=>{
+        if(this.status ==="completed"){
+            this.duedate = "";
+            this.timeDuedate = "";
+            this.completedDuedate = "";
+            task.classList.add("task__completed");
+        }
+        else if(this.status !== "completed" && this.dateCompleted){
+            this.dateCompleted = "";
+        }
+    }
 }

@@ -1,7 +1,8 @@
 import  {storage}  from "./storage";
-import { clearHTML,renderTask } from "./interface";
+import { renderTask } from "./interface";
 import Task from "./Task";
-
+import { clearHTML } from "./utilities";
+import variables from "./variables";
 
 const task = (function(){
 
@@ -10,7 +11,7 @@ const task = (function(){
     const getTask = ()=> myTask;
     const setTask = (task)=> myTask.push(task);
     const printTask = ()=>{
-        clearHTML();
+        clearHTML(variables.containerTask);
         if(myTask.length >= 1){
             sortArray();
             myTask.forEach(task =>{
@@ -46,13 +47,11 @@ const task = (function(){
             if (a.priority !== b.priority) {
               return a.priority - b.priority;
             }
-            const dateA = new Date(a.completedDate);
-            const dateB = new Date(b.completedDate);
+            const dateA = new Date(a.sortDate);
+            const dateB = new Date(b.sortDate);
 
             return dateB.getTime() - dateA.getTime(); 
           });
-          
-          
           
     }
   

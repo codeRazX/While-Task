@@ -45,12 +45,14 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 1.5rem;
-       
+        overflow: hidden;
+        
         p{
             font-size: 1.5rem;
             font-weight: bold;
             font-family: v.$fontHeaders;
             color: v.$colorText; 
+            
         }
 
         p span{
@@ -59,7 +61,7 @@
             font-size: 1.4rem;
             display: block;
             margin-top: .2rem;
-            
+           
         }
     }
 
@@ -123,7 +125,7 @@
             flex-wrap: wrap;
             align-items: center;
             margin-top: 1rem;
-          
+           
            &__img{
             height: 4rem;
             width: 4rem;
@@ -180,13 +182,13 @@
             box-shadow: 0 0 5px #000;
             display: flex;
             flex-direction: column;
-            
+           
             z-index: 50;
             
             &__option{
                 @include m.flex(flex-start,.5rem);
                 transition: background-color 300ms ease;
-            
+                
                 img{
                     width: 2.5rem;
                 }
@@ -271,7 +273,7 @@
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-              
+                
                 &__time{
                     position: relative;
                     font-weight: bold;

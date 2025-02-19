@@ -19,7 +19,7 @@
         font-size: 3rem;
         font-family: v.$fontTitle;
         cursor: pointer;
-        color: #0e5035;
+        color: v.$colorLabel;
     }
 
     .form{
@@ -56,7 +56,7 @@
           }
             label{
                 font-weight: bold;
-                color: #0e5035;
+                color: v.$colorLabel;
             }
            
             select, option{
