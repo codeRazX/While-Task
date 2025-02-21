@@ -1,4 +1,4 @@
-import { generateHTML, toDateString, cutText, currentDate, calculateRemainingTime,dateNotDay,toUpper, scrollToTarget } from "./utilities";
+import { generateHTML, toDateString, cutText, currentDate, calculateRemainingTime,dateNotDay,toUpper, scrollToTarget, resetValues } from "./utilities";
 import getVariables from "./variables";
 import imgMenu from "../img/context-menu.svg";
 import imgView from "../img/info.svg";
@@ -15,8 +15,8 @@ import { storage } from "./storage";
 export default class Task{
     constructor({title,description,duedate = undefined,priority,note ="",id,date,status, dateCompleted =undefined, isNew, timeDuedate = undefined, completedDuedate=undefined, sortDate = ""}){
 
-        this.title = title;
-        this.description = description;
+        this.title = toUpper(title);
+        this.description = toUpper(description);
         this.duedate = duedate || toDateString(duedate);
         this.priority = parseInt(priority);
         this.note = note;
@@ -318,9 +318,7 @@ export default class Task{
 
     logicPropertiesCompleted = (task)=>{
         if(this.status ==="completed"){
-            this.duedate = "";
-            this.timeDuedate = "";
-            this.completedDuedate = "";
+            resetValues(this.duedate,this.timeDuedate,this.completedDuedate);
             task.classList.add("task__completed");
         }
         else if(this.status !== "completed" && this.dateCompleted){

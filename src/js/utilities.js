@@ -139,10 +139,9 @@ export const calculateRemainingTime = (dateString) => {
   
 }
 
+export const getDataForm = (data)=>Object.fromEntries(new FormData(data));
 
-
-
-
+export const resetValues = (...values) => values.forEach(value => value = "");
 
 
 

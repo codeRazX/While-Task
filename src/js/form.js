@@ -2,29 +2,26 @@ import variables from "./variables";
 import { showMessage, updateFormSucces } from "./interface";
 import arrayTask from "./content-task";
 import Task from "./Task";
-import { toUpper, cutText } from "./utilities";
+import { toUpper, cutText, getDataForm } from "./utilities";
 
 
-const validateForm = (inputs) => {
+const validateForm = (data) => {
     let isValid = true;
+    
+    const requiredProps = [variables.properties().title, variables.properties().description, variables.properties().priority];
 
-    for (const prop in inputs) {
-        if (prop === "title" || prop === "description") {
-            if (inputs[prop] === "" || inputs[prop] === undefined) {
-               
-                showMessage("error", variables.form[prop].parentElement,"This field is required");
-                isValid = false;
-            }
-        }
-        
-        if (prop === "priority") {
-            const priorityChecked = variables.form.querySelector('input[name="priority"]:checked');
-            if (!priorityChecked) {
-                showMessage("error", variables.form.querySelector('input[name="priority"]').parentElement.parentElement.parentElement,"This field is required");
-                isValid = false;
-            }
-        }
+    requiredProps.forEach(input => {
+        if(data[input] === "" || data[input] === undefined){
+
+            const fieldValidate = (input === variables.properties().priority)
+            ? variables.form.querySelector('input[name="priority"]').parentElement.parentElement.parentElement
+            : variables.form[input].parentElement;
+
+            showMessage("error", fieldValidate, "This field is required");
+            isValid = false;
     }
+        
+    })
 
     return isValid;
 }
@@ -46,20 +43,13 @@ export const validateLength = (e)=>{
 export const handleForm = (e)=>{
     e.preventDefault();
     
-    const data = Object.fromEntries(new FormData(e.target));
-    console.log(data);
-    const inputs= {
-        title:toUpper(variables.form.title.value.trim()),
-        description: toUpper(variables.form.description.value.trim()),
-        priority: variables.form.querySelector('input[name="priority"]:checked')?.value,
-        duedate: variables.form.duedate.value,
-        timeDuedate: variables.form["time-duedate"].value,
-        status: variables.form.status.value,
-        note: (variables.form.note.value.trim())? [{note:toUpper(variables.form.note.value.trim()), isNew: true}] : [],
-    }
-    if(!validateForm(inputs))return;
+    const data = getDataForm(e.target);
+    data.note = (data.note !=="")? [{note:toUpper(variables.form.note.value.trim()), isNew: true}] : [];
+    
+    
+    if(!validateForm(data))return;
    
-    arrayTask.setTask(new Task(inputs));
+    arrayTask.setTask(new Task(data));
     arrayTask.updateDataTask();
     updateFormSucces();
 }

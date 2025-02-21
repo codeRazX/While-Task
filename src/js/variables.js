@@ -25,6 +25,17 @@ const getVariables = (function(){
     const KEY = "task";
     const STATUS_PENDING = "pending";
     const STATUS_INPROGRESS = "progress";
+
+    const PROPERTIES = {
+        title: "title",
+        description : "description",
+        priority: "priority",
+        duedate: "duedate",
+        timeDuedate: "timeDuedate",
+        status: "status",
+        note:"note",
+    }
+
     const ACTIONS = {
         openMenu: "openMenu",
         view: "view",
@@ -45,9 +56,9 @@ const getVariables = (function(){
     const pending = ()=> STATUS_PENDING;
     const progress = ()=> STATUS_INPROGRESS;
     const actions = ()=> ACTIONS;
-    
+    const properties = ()=> PROPERTIES;
    
-    return {containerTask,modal,overlay,btnAdd, form, maxLengthViewport,maxLengthTitle,maxLengthDescription, board, key, pending,progress, defaultMessage, actions,btnCloseModal, modalEdit,formEdit, maxLengthNote,offsetScroll,addNoteEdit,subtmitBtnEdit,dateCompletedEdit, boardPanel,formFilter,titlesHeader};
+    return {containerTask,modal,overlay,btnAdd, form, maxLengthViewport,maxLengthTitle,maxLengthDescription, board, key, pending,progress, defaultMessage, actions,btnCloseModal, modalEdit,formEdit, maxLengthNote,offsetScroll,addNoteEdit,subtmitBtnEdit,dateCompletedEdit, boardPanel,formFilter,titlesHeader, properties};
     
 })();
 export default getVariables;

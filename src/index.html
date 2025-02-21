@@ -28,7 +28,7 @@
                 <label for="duedate">Duedate</label>
                 <div class="form__field__duedate">
                     <input type="date" id="duedate" name="duedate">
-                    <input type="time" id="time-duedate" name="time-duedate">
+                    <input type="time" id="timeDuedate" name="timeDuedate">
                 </div>
                 
             </div>
@@ -37,6 +37,7 @@
                 <p class="form__field-modify__label">Choose the priority*</p>
 
                 <div class="form__field__radio">
+                    
                     <div class="form__field__radio-block">
                         <label for="high">High</label>
                         <input value="1" type="radio" id="high" name="priority">
@@ -83,7 +84,7 @@
                 <div class="form__edit__field">
 
                     <p class="form__edit__property">Date Added</p>
-                    <input id="edit-date" class="form__edit__value form__edit__value__date"></input>
+                    <input name="edit-date" id="edit-date" class="form__edit__value form__edit__value__date"></input>
 
                 </div>
 
@@ -111,7 +112,7 @@
                             <option value="completed">Completed</option>
                         </select>
 
-                        <span id="edit-dateCompleted" class="form__edit__value  disabled"></span>
+                        <input name="edit-dateCompleted" id="edit-dateCompleted" class="form__edit__value  disabled"></input>
                     </div>
                 </div>
 

@@ -78,7 +78,6 @@ const filterResult = (e)=>{
     results.length === 0 && showMessage("notification",document.body,"No results found. Try another search or reset the filters");
 
     task.printTask(results);
-    
 }
 
 variables.formFilter.addEventListener("change", filterResult);
