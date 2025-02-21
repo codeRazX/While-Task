@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>While Task</title>
+    <link rel="preload" href="../src/fonts/IndieFlower-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="../src/fonts/Lato-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="../src/fonts/Roboto-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="../src/fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  </head>
 </head>
 <body>
   
@@ -97,7 +102,7 @@
 
                         <input class="form__edit__value" type="time" name="edit-timeDuedate" id="edit-timeDuedate">
 
-                        <img class="form__edit__delete__duedate disabled" src="./img/delete.svg" alt="Icon Delete Duedate">
+                        <img class="form__edit__delete__duedate disabled" src="./img/delete.svg" alt="Icon Delete Duedate" loading="lazy">
                     </div>
                 </div>
 
@@ -143,7 +148,7 @@
                 <div class="form__edit__field">
                     <div class="form__edit__field__notes__head">
                         <p class="form__edit__property">Notes</p>
-                        <img id="add-notes-edit" class="form__edit__notes__icon" src="./img/add-notes.svg" alt="Icon Add Notes Edit">
+                        <img id="add-notes-edit" class="form__edit__notes__icon" src="./img/add-notes.svg" alt="Icon Add Notes Edit" loading="lazy">
                     </div>
 
                     <div id="edit-container-notes" class="form__edit__field__notes">
@@ -226,7 +231,7 @@
 
                     
                     
-                    <img src="./img/info.svg" alt="Icon Filter">
+                    <img src="./img/info.svg" alt="Icon Filter" loading="lazy">
                 </form>
 
                
@@ -275,7 +280,7 @@
     
 
     <footer class="footer">
-        <p>While Task, 2025&copy;</p>
+        <p>While Task, 2025</p>
     </footer>
 </body>
 </html>

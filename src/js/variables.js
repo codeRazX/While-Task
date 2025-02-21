@@ -1,4 +1,5 @@
 const getVariables = (function(){
+    
     const board = document.getElementById("board-container");
     const form = document.getElementById("form");
     const modal = document.getElementById("modal");

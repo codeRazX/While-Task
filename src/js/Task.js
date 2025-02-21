@@ -1,4 +1,4 @@
-import { generateHTML, toDateString, cutText, currentDate, calculateRemainingTime,dateNotDay,toUpper, scrollToTarget, resetValues } from "./utilities";
+import { generateHTML, toDateString, cutText, currentDate, calculateRemainingTime,dateNotDay,toUpper, scrollToTarget} from "./utilities";
 import getVariables from "./variables";
 import imgMenu from "../img/context-menu.svg";
 import imgView from "../img/info.svg";
@@ -33,6 +33,7 @@ export default class Task{
 
     menuView = ()=>{
         const imgInfo = generateHTML("IMG","","",imgView,"Icon view");
+        imgInfo.loading = "lazy";
         const infoView= generateHTML("P","","View/Edit");
         const menuFieldView = generateHTML("DIV","task__modal__menu__option","","","",imgInfo,infoView);
         menuFieldView.dataset.action = getVariables.actions().view;
@@ -41,6 +42,7 @@ export default class Task{
     menuStatus = ()=>{
         const infoStatus =generateHTML("P","","Change Status");
         const imgToggleStatus = generateHTML("IMG","","",iconStatus,"Icon Status");
+        imgToggleStatus.loading = "lazy";
         const menuFieldStatus = generateHTML("DIV","task__modal__menu__option","","","",imgToggleStatus,infoStatus);
         menuFieldStatus.dataset.action = getVariables.actions().switchStatus;
         return menuFieldStatus;
@@ -50,6 +52,7 @@ export default class Task{
         if(this.status !== "completed"){
             const infoPriority =generateHTML("P","","Change Priority");
             const imgPriority = generateHTML("IMG","","",iconPriority,"Icon Priority");
+            imgPriority.loading = "lazy";
             const menuFieldPriority = generateHTML("DIV","task__modal__menu__option","","","",imgPriority,infoPriority);
             menuFieldPriority.dataset.action = getVariables.actions().switchPriority;
             return menuFieldPriority;
@@ -59,6 +62,7 @@ export default class Task{
     menuCompleted = ()=>{
         if(this.status !== "completed"){
             const imgCompleted = generateHTML("IMG","","",imgCheck,"Icon Completed");
+            imgCompleted.loading ="lazy";
             const infoCompleted = generateHTML("P","","Mark as Completed");
             const menuFieldCompleted = generateHTML("DIV","task__modal__menu__option","","","",imgCompleted,infoCompleted);
             menuFieldCompleted.dataset.action = getVariables.actions().completed;
@@ -69,6 +73,7 @@ export default class Task{
     }
     menuRemove = ()=>{
         const imgDelete = generateHTML("IMG","","",imgRemove,"Icon Remove");
+        imgDelete.loading = "lazy";
         const infoDelete = generateHTML("P","","Remove");
         const menuFieldRemove = generateHTML("DIV","task__modal__menu__option","","","",imgDelete,infoDelete);
         menuFieldRemove.dataset.action = getVariables.actions().deleteTask;
@@ -76,6 +81,7 @@ export default class Task{
     }
     blockMenu = ()=>{
         const imgModalTask = generateHTML("IMG","","",imgMenu,"Icon Menu");
+        imgModalTask.loading = "lazy";
         const taskModalMenu = generateHTML("DIV","task__modal__menu disabled");
         taskModalMenu.append(this.menuView(),this.menuStatus(),this.menuPriority(),this.menuCompleted(),this.menuRemove());
         taskModalMenu.classList.add("task__modal__menu","disabled");
@@ -141,6 +147,7 @@ export default class Task{
     }
     subBlockNotes = ()=>{
         const notesImg = generateHTML("IMG","task__notes__container__img","",iconAddNote,"Icon Note");
+        notesImg.loading="lazy";
         const titleNotes = generateHTML("P","","Notes");
         const notesContainer = generateHTML("DIV","task__notes__container");
         const taskNotes = generateHTML("DIV","task__notes","","","",titleNotes,notesContainer);
@@ -318,7 +325,9 @@ export default class Task{
 
     logicPropertiesCompleted = (task)=>{
         if(this.status ==="completed"){
-            resetValues(this.duedate,this.timeDuedate,this.completedDuedate);
+            this.duedate = "";
+            this.timeDuedate = "";
+            this.completedDuedate ="";
             task.classList.add("task__completed");
         }
         else if(this.status !== "completed" && this.dateCompleted){

@@ -1,6 +1,6 @@
 import variables from "./variables";
 import contentTask from "./content-task";
-import { adjustHeight, generateHTML, replaceClass,cutText, dateNotDay, disabledInputs, scrollToTarget,clearHTML,toUpper, getDataForm,resetValues } from "./utilities";
+import { adjustHeight, generateHTML, replaceClass,cutText, dateNotDay, disabledInputs, scrollToTarget,clearHTML,toUpper, getDataForm } from "./utilities";
 import { editStyleStatus, showMessage, updateFormEdit } from "./interface";
 
 
@@ -13,7 +13,6 @@ const inputs = Object.keys(getDataForm(form)).map(prop => form[prop]).filter(inp
 
 
 export const loadTask = ()=>{
-        
     const currentTask = contentTask.currentTask(variables.modalEdit.dataset.task);
     
     loadProperties(currentTask);
@@ -62,7 +61,9 @@ const checkMoreInfo = (task)=>{
         resetDuedate.onclick = ()=>{
             
             if(form["edit-status"].value ==="completed")return;
-            resetValues(form["edit-duedate"],form["edit-timeDuedate"],task.completedDuedate);
+            form["edit-duedate"].value ="";
+            form["edit-timeDuedate"].value ="";
+            task.completedDuedate = "";
             variables.subtmitBtnEdit.disabled = false;
         }
     }
@@ -89,11 +90,9 @@ const loadNotes = (task)=>{
 }
 
 
-
 const validateForm = ()=>{
     let isValid = true;
     const inputs = [form["edit-title"],form["edit-description"]];
-
    
     inputs.forEach(input => {
         if(input.value.trim() === ""){
@@ -103,6 +102,7 @@ const validateForm = ()=>{
     })
     return isValid;
 }
+
 
 const checkMaxValue = (text,target)=>{
      if(target.id.includes("title")){    
@@ -133,6 +133,7 @@ export const checkMaxValuePaste = (e)=>{
      fixScroll(currentScroll,scrollHeight,clientHeight);
     }
 }
+
 const fixScroll = (currentScroll,scrollHeight,clientHeight)=>{
     const isNearBottom = scrollHeight - currentScroll - clientHeight < variables.offsetScroll;
   
@@ -217,7 +218,6 @@ export const handleModalActions = (e)=>{
 
 
 
-
 const changesForm = (target)=>{
     
     if(target.value ==="completed"){
@@ -226,7 +226,8 @@ const changesForm = (target)=>{
             const newDateCompleted = dateNotDay();
 
             dateCompleted.value = newDateCompleted;
-            resetValues(form["edit-duedate"], form["edit-timeDuedate"]);
+            form["edit-duedate"].value = "";
+            form["edit-timeDuedate"].value = "";
             disabledInputs(inputs);
 
             dateCompleted.classList.contains("disabled") && replaceClass(dateCompleted, "disabled", "active"); 
@@ -239,12 +240,13 @@ const changesForm = (target)=>{
         if (dateCompleted.classList.contains("active")) {
             replaceClass(dateCompleted, "active", "disabled");
             inputs.forEach(input => input.classList.remove("disabled__input"));
-            resetValues(dateCompleted);
+            dateCompleted.value = "";
             editDefaultMessage.textContent ="*You can click on a property to edit it";
         }
     }
    
 }
+
 export const observerChanges = (e)=>{
    
     if(e.target.id ==="edit-status"){

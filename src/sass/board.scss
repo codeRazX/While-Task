@@ -6,7 +6,7 @@
 
     margin-top: v.$margin * 2;
     height: auto;
-    padding-bottom: 35rem;
+    padding-bottom: 30rem;
 
     &__container{
         display: grid;
@@ -85,6 +85,11 @@
                 
                 @media (min-width: 1020px ){
                   gap: 0;
+                }
+
+                img{
+                    width: 2.5rem;
+                    height: 2.5rem;
                 }
 
                 &__field{

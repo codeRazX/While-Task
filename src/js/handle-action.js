@@ -8,25 +8,16 @@ import task from "./content-task";
 const actions = (()=>{
 
     const genericFunctionAction = (el,text, callback = ()=>{},clase = "task__remove")=>{
-        try {
-            if(el)el.classList.add(clase);
-            showMessage("notification", document.body, text);
-            callback();
-        } catch (error) {
-            showMessage("error", document.body, "Something went wrong!");
-        }
+        if(el)el.classList.add(clase);
+        showMessage("notification", document.body, text);
+        callback();
      }
 
      const genericFunctionActionSetTimeOut = (selectedTask,callback = ()=>{})=>{
-        try {
-            selectedTask.setValueNew(true);
-            callback();
-        } catch (error) {
-            showMessage("error", document.body, "Failed to update task.");
-        }
+        selectedTask.setValueNew(true);
+        callback();
      }
 
-   
 
      const checkButtonPriority = (data,btn)=>{
         switch(data){

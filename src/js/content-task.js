@@ -8,20 +8,22 @@ const task = (function(){
 
     const myTask = []; 
     let isRendering = false;
+
     const getTask = ()=> myTask;
     const setTask = (task)=> myTask.push(task);
+
     const printTask = (array = myTask)=>{
         clearHTML(variables.containerTask);
+
         if(array.length >= 1){
             sortArray(array);
+
             array.forEach(task =>{
                 task.create(); 
             })
 
             checkRenderTime();
         }
-       
-        console.log(myTask);
     }
 
     const getUpdateTask = ()=>{
@@ -35,7 +37,6 @@ const task = (function(){
     }
 
     const checkRenderTime = ()=>{
-       
         isRendering = myTask.some(task => task.completedDuedate);
         if(isRendering)renderTask();
     }
@@ -59,7 +60,7 @@ const task = (function(){
     const clearTask = ()=> myTask.splice(0,myTask.length);
 
     getUpdateTask();
-    
     return{getTask,setTask, printTask, currentTask, getUpdateTask, updateDataTask, isRenderingControl,clearTask}
 })();
+
 export default task;

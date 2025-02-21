@@ -109,8 +109,6 @@ export const calculateRemainingTime = (dateString) => {
   let targetDate;
   
   targetDate = (dateString.includes("-")) ? new Date(dateString) : new Date(currentDate.toDateString() + " " + dateString);
-  
-  
  
   !dateString.includes(":") && targetDate.setHours(0, 0, 0, 0);
   
@@ -133,7 +131,6 @@ export const calculateRemainingTime = (dateString) => {
   const totalMinutes = minutesRemaining % 60;
   const totalSeconds = seconds % 60;
   
-  //console.log(`Tiempo Restante: ${daysRemaining} días, ${totalHours} horas, ${totalMinutes} minutos, ${totalSeconds} segundos`);
   
   return { days: daysRemaining, hours: totalHours, minutes: totalMinutes, seconds:totalSeconds };
   
@@ -141,7 +138,7 @@ export const calculateRemainingTime = (dateString) => {
 
 export const getDataForm = (data)=>Object.fromEntries(new FormData(data));
 
-export const resetValues = (...values) => values.forEach(value => value = "");
+
 
 
 

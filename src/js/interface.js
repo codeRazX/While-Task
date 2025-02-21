@@ -135,6 +135,7 @@ const popupNotes = (note)=>{
     }
     document.body.appendChild(modalElement);
 }
+
 const modalConfirm = (ask, btnText1, btnText2, callbackPrimary,callbackSecondary, clas = "",priority = false,refPrimaryButton = null,refSecondaryButton = null)=>{
     activeEl(variables.overlay);
     
@@ -260,7 +261,6 @@ const handleBoard = (e)=>{
     const selectedTask = contenTask.currentTask(task.dataset.id);
     const actions = dataAction.getAction();
 
-    //quizar cambiar que solo se abra el edit el dar el view y no al pulsar la task
     if(task && !actionType) actions.view({selectedTask});
     if(!actionType)return;
     if(!actions.hasOwnProperty(actionType))return;

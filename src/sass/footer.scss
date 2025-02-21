@@ -1,14 +1,14 @@
 @use "variables" as v;
 
 .footer{
-    margin-bottom: 1rem;
+    margin-top: 5rem;
+
     p{
-        
         text-align: center;
         font-family: v.$fontTitle;
         color: v.$colorText;
         font-weight: bold;
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
    
 }
