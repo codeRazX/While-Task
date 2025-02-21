@@ -1,3 +1,4 @@
+@use "variables" as v;
 
 @mixin flex($justify, $gap: 0){
     display: flex;
@@ -25,4 +26,33 @@
     opacity: 0;
     animation: appear 300ms forwards ease-in-out, expand 400ms forwards ease-in-out;
     overflow-x: hidden;
+}
+
+@mixin btn(){
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: #fff;  
+    padding:1rem 2rem;  
+    border-radius: 5px;  
+    font-weight: 700;  
+    text-transform: uppercase;  
+    cursor: pointer;  
+    transition: background-color,font-weight,text-shadow,transform 0.5s ease;  
+    text-shadow: 0 0 1px #000;
+    
+    &:hover {
+        background-color: #000;  
+        color: #fff;
+        transform: scale(1.05);
+        font-weight: bold;
+        text-shadow: 0 0 5px #000;
+        box-shadow: 0 0 10px 2px #fff;
+    }
+}
+
+@mixin tablet() {
+    @media (min-width: 768px) {
+        @content;  
+    }
 }

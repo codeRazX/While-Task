@@ -7,11 +7,15 @@ const getVariables = (function(){
     const btnCloseModal = modal.querySelector(".modal__close");
     const overlay = document.getElementById("overlay");
     const btnAdd = document.getElementById("add-btn");
-    const containerTask = document.querySelectorAll('#board-container [data-item="container"]');
+    const containerTask = board.querySelectorAll('[data-item="container"]');
     const defaultMessage = document.getElementById("default-message");
     const addNoteEdit = document.getElementById("add-notes-edit");
     const subtmitBtnEdit = document.getElementById("edit-submit");
     const dateCompletedEdit = document.getElementById("edit-dateCompleted");
+    const boardPanel = document.getElementById("board-panel");
+    const formFilter = boardPanel.querySelector("#form-filter");
+    const titlesHeader = document.getElementById("nav-header").querySelectorAll("H2");
+
 
     const MAX_LENGTH_VIEWPORT = 100;
     const MAX_LENGTH_TITLE = 250;
@@ -41,9 +45,9 @@ const getVariables = (function(){
     const pending = ()=> STATUS_PENDING;
     const progress = ()=> STATUS_INPROGRESS;
     const actions = ()=> ACTIONS;
+    
    
-   
-    return {containerTask,modal,overlay,btnAdd, form, maxLengthViewport,maxLengthTitle,maxLengthDescription, board, key, pending,progress, defaultMessage, actions,btnCloseModal, modalEdit,formEdit, maxLengthNote,offsetScroll,addNoteEdit,subtmitBtnEdit,dateCompletedEdit};
+    return {containerTask,modal,overlay,btnAdd, form, maxLengthViewport,maxLengthTitle,maxLengthDescription, board, key, pending,progress, defaultMessage, actions,btnCloseModal, modalEdit,formEdit, maxLengthNote,offsetScroll,addNoteEdit,subtmitBtnEdit,dateCompletedEdit, boardPanel,formFilter,titlesHeader};
     
 })();
 export default getVariables;

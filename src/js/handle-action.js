@@ -1,14 +1,15 @@
 import { showMessage,defaultMessage,editStyleStatus } from "./interface";
-import { toUpper,replaceClass,activeEl } from "./utilities";
+import { toUpper,replaceClass,activeEl,scrollToTarget,waitFor } from "./utilities";
 import variables from "./variables";
 import {loadTask} from "./form-edit";
 import eventHandle from "./event-handle";
+import task from "./content-task";
 
 const actions = (()=>{
 
     const genericFunctionAction = (el,text, callback = ()=>{},clase = "task__remove")=>{
         try {
-            el.classList.add(clase);
+            if(el)el.classList.add(clase);
             showMessage("notification", document.body, text);
             callback();
         } catch (error) {
@@ -25,7 +26,7 @@ const actions = (()=>{
         }
      }
 
-     const waitFor = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+   
 
      const checkButtonPriority = (data,btn)=>{
         switch(data){
@@ -154,7 +155,40 @@ const actions = (()=>{
                 },
                 () => {}
             );
-        }
+        },
+
+        addTask: ()=>{
+            activeEl(variables.modal);
+            activeEl(variables.overlay);
+            eventHandle.event.registerEventsForm();
+        },
+        goTop: ()=>{
+           scrollToTarget(variables.btnAdd);
+        },
+        clearBoard: (modalConfirm)=>{
+            if(task.getTask().length <= 0)return;
+            modalConfirm(
+                "Are you sure you want to clear your board? All your tasks will be removed", "Yes", "Cancel",
+                async () => {
+                    genericFunctionAction("", "All the notes have been removed from the dashboard!",async()=>{
+                        await waitFor(500);
+                        task.clearTask();
+                        task.updateDataTask();
+                        defaultMessage();
+                    });
+                },
+                () => {}
+            );
+           
+           
+        },
+        resetFilter: ()=>{
+            const hasFilter = Array.from(variables.formFilter.querySelectorAll("SELECT")).some(select => select.value !=="");
+            
+            if(!hasFilter)return;
+            variables.formFilter.reset();
+            task.printTask();
+        },
     };
 
     const getAction = ()=> action;

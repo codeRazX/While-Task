@@ -22,6 +22,7 @@ export const cutText = (text,max, edit = false,container = "") =>{
   }
   return text;
 }
+export const waitFor = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 export const adjustHeight = (el)=>{
   el.value.length > 100? el.style.height = "auto": el.style.height = "2rem";
@@ -113,7 +114,7 @@ export const calculateRemainingTime = (dateString) => {
  
   !dateString.includes(":") && targetDate.setHours(0, 0, 0, 0);
   
-  if (isNaN(targetDate)) return { days: 0, hours: 0, minutes: 0 };
+  if (isNaN(targetDate)) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
   
   const currentTime = currentDate.getTime(); 
   const targetTime = targetDate.getTime(); 

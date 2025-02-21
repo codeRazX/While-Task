@@ -10,15 +10,17 @@ const task = (function(){
     let isRendering = false;
     const getTask = ()=> myTask;
     const setTask = (task)=> myTask.push(task);
-    const printTask = ()=>{
+    const printTask = (array = myTask)=>{
         clearHTML(variables.containerTask);
-        if(myTask.length >= 1){
-            sortArray();
-            myTask.forEach(task =>{
+        if(array.length >= 1){
+            sortArray(array);
+            array.forEach(task =>{
                 task.create(); 
             })
+
+            checkRenderTime();
         }
-        checkRenderTime();
+       
         console.log(myTask);
     }
 
@@ -42,8 +44,8 @@ const task = (function(){
    
     const currentTask = (id)=> myTask[myTask.findIndex(task => task.id === parseInt(id))];
     
-    const sortArray = ()=>{
-        myTask.sort((a, b) => {
+    const sortArray = (array)=>{
+        array.sort((a, b) => {
             if (a.priority !== b.priority) {
               return a.priority - b.priority;
             }
@@ -54,8 +56,10 @@ const task = (function(){
           });
           
     }
-  
+    const clearTask = ()=> myTask.splice(0,myTask.length);
+
     getUpdateTask();
-    return{getTask,setTask, printTask, currentTask, getUpdateTask, updateDataTask, isRenderingControl}
+    
+    return{getTask,setTask, printTask, currentTask, getUpdateTask, updateDataTask, isRenderingControl,clearTask}
 })();
 export default task;

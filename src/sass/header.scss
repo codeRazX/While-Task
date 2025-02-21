@@ -5,15 +5,67 @@
 .header{
     padding: v.$margin 0;
     background-color: #1a1a1a;
+    height: 30rem;
+    max-height: 30rem;
+  
+    &__nav{
+        width: 38rem;
+        height: 20rem;
+        max-height: 20rem;
+        position: relative;
+     
+        button{
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+       
+        h2{
+            color: #fff;
+            font-family: v.$fontHeaders;
+            font-size: 2.8rem;
+            margin-bottom: .5rem;
+            
+            &::first-letter{
+                font-size:3rem;
+                color: v.$colorWidget;
+            }
 
+            $paddin: 1rem;
+            @for $i from 1 through 3{
+                &:nth-child(#{$i}){
+
+                    @if $i ==2{
+                        padding-left: $paddin * $i*3;   
+                    }
+                    @else{
+                        padding-left: $paddin * $i*1;
+                    }
+                   
+                }
+            }
+        }
+
+           
+       
+        @media (max-width: 768px ){
+            h2{
+                visibility: hidden
+            }
+          }
+
+        
+    }
     &__grid{
         @include m.flex(space-between);
+      
     }
     &__heading{
         
         line-height: .8;
     
         h1{
+            font-size: 8rem;
             background:linear-gradient(to right, #fff 0%, #fff 40%, #42fdaf 100%);
             background-clip: text;          
             color: transparent;   
@@ -22,7 +74,7 @@
             display: block;
            
             & span{
-                font-size: 8rem;
+                font-size: 10rem;
             }
         }
 

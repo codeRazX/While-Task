@@ -12,6 +12,7 @@ html{
 body{
     font-size: 1.6rem;
     background-color: #e1e1e1;
+    overflow-x: hidden;
 }
 h1{
     font-family: v.$fontTitle;
@@ -39,9 +40,10 @@ h3{
 
 .btn {
     border: none;
+    font-family: v.$primaryFont;
     outline: none;
     background-color: v.$colorWidget;
-    color: #1b1b1b;  
+    color: v.$colorText;  
     padding: 1rem 4rem;  
     border-radius: 5px;  
     font-weight: 700;  
@@ -50,7 +52,7 @@ h3{
     transition: background-color,color,transform 0.5s ease;  
     text-shadow: 0 0 1px #000;
     &:hover {
-        background-color: #1b9964;  
+        background-color: v.$colorLabel;  
         color: #fff;
         transform: scale(1.05);
     }

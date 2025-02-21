@@ -1,6 +1,6 @@
 import variables from "./variables";
 import contenTask from "./content-task";
-import { desactivedEl,activeEl, replaceClass,generateHTML,calculateRemainingTime,dateNotDay,cutText} from "./utilities";
+import { desactivedEl,activeEl, replaceClass,generateHTML,calculateRemainingTime,dateNotDay,cutText,waitFor, clearHTML} from "./utilities";
 import dataAction from "./handle-action";
 import eventHandle from "./event-handle";
 
@@ -209,13 +209,46 @@ export const renderTask = () => {
   
 };
 
+const loaderHeaderAnimation = async()=>{
+    const text1 = "Your task manager";
+    const text2 = "Create and manage";
+    const text3 = "Achieve your goals";
+   
+    const animationText = (text,el)=>{
+        
+        for(let i =0; i< text.length; i++){
+            setTimeout(()=>{
+                const letter = document.createElement('span');  
+                letter.textContent = text[i];
+                letter.classList.add('appear');  
+                el.appendChild(letter);  
+              
+            },30 * i);
+        }
+        
+    }
+
+    animationText(text1,variables.titlesHeader[0]);
+    await waitFor(text1.length *30);
+    animationText(text2,variables.titlesHeader[1]);
+    await waitFor(text2.length *30);
+    animationText(text3,variables.titlesHeader[2]);
+    await waitFor(text3.length * 150);
+    clearHTML(variables.titlesHeader);
+    variables.titlesHeader[0].textContent = text1;
+    variables.titlesHeader[1].textContent = text2;
+    variables.titlesHeader[2].textContent = text3;
+}
+
 document.addEventListener("DOMContentLoaded",registerInit);
 function registerInit(){
+    loaderHeaderAnimation();
     defaultMessage();
     updateDate();
     contenTask.printTask();
     variables.board.addEventListener("click",handleBoard);
     document.body.addEventListener("click",handleViewport);
+    variables.boardPanel.addEventListener("click",handleBoardPanel);
 }
 
 const handleBoard = (e)=>{
@@ -273,3 +306,18 @@ const handleBoard = (e)=>{
     else{return};   
 }
  
+const handleBoardPanel = (e)=>{
+    const target = e.target;
+   
+
+    const actionType = target.dataset?.action || target.closest('[data-action]')?.dataset?.action || "";
+    const actions = dataAction.getAction();
+
+    
+    if(!actionType)return;
+    if(!actions.hasOwnProperty(actionType))return;
+
+  
+    actions[actionType](modalConfirm);
+    
+}

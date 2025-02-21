@@ -2,11 +2,11 @@
 @use "mixin" as m;
 
 .modal__confirm{
-    @include m.modal(50rem,15rem,2rem);
+    @include m.modal(50rem,16rem,2rem);
     display: flex;
     flex-direction: column;
     justify-content: center;
-   
+    overflow-y: hidden;
     border-top: 5px solid v.$colorWidget;
     p{
         text-align: center;

@@ -6,10 +6,11 @@
 
     margin-top: v.$margin * 2;
     height: auto;
-    padding-bottom: 50rem;
+    padding-bottom: 35rem;
+
     &__container{
         display: grid;
-        grid-template-columns: repeat(3,40rem);
+        grid-template-columns: repeat(3,calc(40rem - 1.33rem));
         gap: 2rem;
         
     }
@@ -39,6 +40,82 @@
     }
     &__completed__heading{
         border-bottom: 1rem solid v.$colorWidget;
+    }
+
+
+    &__panel{
+        padding: 0 2rem 2rem 2rem;
+        position: sticky;
+        top: .5rem;  
+        z-index: 100;
+        width: 100%;
+        border: 1px solid v.$colorWidget;
+        border-radius: 5px;
+        margin-bottom: 2rem;
+        background-color: v.$primaryColor;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+
+        @media (min-width: 1020px ){
+           flex-direction: row;
+           gap: 2rem;
+           padding: 0 2rem 0 0;
+        }
+       
+
+        &__buttons{
+
+            button{
+                font-family: v.$primaryFont;
+                @include m.btn();
+            }
+        }
+       
+
+        &__filter{
+            flex:1;
+
+            &__form{
+
+                @include m.flex(space-between);
+                gap: 2rem;
+                
+                @media (min-width: 1020px ){
+                  gap: 0;
+                }
+
+                &__field{
+                   
+                    select{
+                        
+                        outline: none;
+                        border: 1px solid v.$colorWidget;
+                        background-color: v.$primaryColor;
+                        color: #fff;
+                        font-weight: bold;
+                        font-family: v.$fontHeaders;
+                        padding: .2rem;
+                        width: 15rem;
+                        max-width: 15rem;
+                        cursor: pointer;
+                        text-shadow: 0 0 1px #000;
+                        transition: background-color,font-weight,text-shadow,transform;
+
+                        &:hover {
+                            background-color: #000;  
+                            color: #fff;
+                            transform: scale(1.05);
+                            font-weight: bold;
+                            text-shadow: 0 0 5px #000;
+                            box-shadow: 0 0 10px 2px #fff;
+                        }
+                    }
+                }
+            }
+        }
     }
 
 }

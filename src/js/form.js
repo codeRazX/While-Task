@@ -46,6 +46,8 @@ export const validateLength = (e)=>{
 export const handleForm = (e)=>{
     e.preventDefault();
     
+    const data = Object.fromEntries(new FormData(e.target));
+    console.log(data);
     const inputs= {
         title:toUpper(variables.form.title.value.trim()),
         description: toUpper(variables.form.description.value.trim()),

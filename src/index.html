@@ -168,6 +168,11 @@
                 <h1>While<span class="header__heading--modify"><span>T</span>ask</span></h1>
             </div>
             <nav class="header__nav">
+                <div id="nav-header" class="nav__title">
+                    <h2></h2>
+                    <h2></h>
+                    <h2></h2>
+                </div>
                 <button id="add-btn" class="btn">Add Task</button>
             </nav>
         </div>
@@ -176,7 +181,59 @@
    
 
     <main class="board container">
-       
+
+        <div  id="board-panel" class="board__panel">
+
+            <div class="board__panel__buttons">
+                <button data-action="addTask">Add Task</button>
+                <button data-action="goTop">Go Top</button>
+                <button data-action="clearBoard">Clear Board</button>
+                <button data-action="resetFilter">Reset Filter</button>
+            </div>
+
+            <div class="board__panel__filter">
+
+                <form id="form-filter" class="board__panel__filter__form">
+
+                    <div class="board__panel__filter__form__field">
+                        <select name="filterStatus" id="filterStatus">
+                            <option disabled selected value="">--Status--</option>
+                            <option value="pending">Pending</option>
+                            <option value="progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+
+                    <div class="board__panel__filter__form__field">
+                        <select name="filterPriority" id="filterPriority">
+                            <option disabled selected value="">--Priority--</option>
+                            <option value="1">High</option>
+                            <option value="2">Medium</option>
+                            <option value="3">Low</option>
+                        </select>
+                    </div>
+
+                    <div class="board__panel__filter__form__field">
+                        <select name="filterDate" id="filterDate">
+                            <option disabled selected value="">--Date--</option>
+                            <option value="today">Today</option>
+                            <option value="week">Last 7 Days</option>
+                            <option value="month">Last 30 Days</option>
+                            <option value="before-month"> Before 30 Days</option>
+                        </select>
+                    </div>
+
+                    
+                    
+                    <img src="./img/info.svg" alt="Icon Filter">
+                </form>
+
+               
+            </div>
+
+            
+        </div>
+
         <div id="board-container" class="board__container">
            
             <div class="board__pending">
@@ -215,5 +272,9 @@
         <p class="default__text">Dashboard is empty, start by adding your first task!</p>
     </div>
     
+
+    <footer class="footer">
+        <p>While Task, 2025&copy;</p>
+    </footer>
 </body>
 </html>

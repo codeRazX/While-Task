@@ -1,7 +1,6 @@
 import variables from "./variables";
 import contentTask from "./content-task";
-import { adjustHeight, generateHTML, replaceClass,cutText, dateNotDay, disabledInputs, scrollToTarget } from "./utilities";
-import { clearHTML } from "./utilities";
+import { adjustHeight, generateHTML, replaceClass,cutText, dateNotDay, disabledInputs, scrollToTarget,clearHTML,toUpper } from "./utilities";
 import { editStyleStatus, showMessage, updateFormEdit } from "./interface";
 
 
@@ -162,17 +161,18 @@ const addNote = ()=>{
 
     const newNote = generateNote("Write your note here!", id + 1);
     newNote && newNote.classList.add("appearNote");
+
     adjustHeight(newNote.firstChild);
-    
     scrollToTarget(newNote);
 }
 
 const editTask = ()=>{
     const currentTask = contentTask.currentTask(parseInt(variables.modalEdit.dataset.task));
     const dataUpdate = Array.from(form.querySelectorAll("[id]")).reduce((acc, input) => {   
-        if(input.id !== "edit-container-notes"){
-            acc[input.id] = input.value;
+        if(input.id !== "edit-container-notes" && input.id !=="add-notes-edit"){
 
+            (input.id === "edit-title" || input.id ==="edit-description")? acc[input.id] = toUpper(input.value) : acc[input.id] = input.value;
+            
             if(input.id ==="edit-dateCompleted"){
                 acc[input.id] = input.textContent;
             }
@@ -180,14 +180,14 @@ const editTask = ()=>{
         return acc;
     }, {});
     
- 
+   
     const notesEdit = containerNotes.querySelectorAll('[data-id]');
     if(notesEdit.length > 0){
         dataUpdate["edit-note"] = []
 
         Array.from(notesEdit).forEach((note) => {
             if(note.value !== ""){
-            dataUpdate["edit-note"].push({note: note.value, isNew: true});
+            dataUpdate["edit-note"].push({note: toUpper(note.value), isNew: true});
             }
         });
     }
