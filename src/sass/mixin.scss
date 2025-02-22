@@ -70,3 +70,8 @@
     }
 }
 
+@mixin smallPhone(){
+    @media (max-width: v.$smallPhone) {
+        @content;  
+    }
+}

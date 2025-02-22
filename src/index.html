@@ -81,7 +81,7 @@
 
     <div id="modal-edit" class="modal__edit">
 
-        <form id="form__edit" class="form__edit">
+        <form autocomplete="off" id="form__edit" class="form__edit">
 
             <fieldset>
                 <legend>Task</legend>
@@ -174,12 +174,14 @@
                 <h1>While<span class="header__heading--modify"><span>T</span>ask</span></h1>
             </div>
             <nav class="header__nav">
-                <div id="nav-header" class="nav__title">
+                <div id="nav-header" class="header__nav__title">
                     <h2></h2>
                     <h2></h>
                     <h2></h2>
                 </div>
-                <button id="add-btn" class="btn">Add Task</button>
+                <div class="header__nav__btn">
+                    <button id="add-btn" class="btn">Add Task</button>
+                </div>
             </nav>
         </div>
     </header>
