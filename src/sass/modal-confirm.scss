@@ -8,12 +8,14 @@
     justify-content: center;
     overflow-y: hidden;
     border-top: 5px solid v.$colorWidget;
+
     p{
         text-align: center;
         font-family: v.$fontHeaders;
         font-size: 2.2rem;
         
     }
+    
     &__btn{
         padding-top: 2rem;
         @include m.flex(center,2rem);

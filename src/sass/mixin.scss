@@ -51,8 +51,22 @@
     }
 }
 
-@mixin tablet() {
-    @media (min-width: 768px) {
+@mixin desktop() {
+    @media (max-width: v.$desktop) {
         @content;  
     }
 }
+
+
+@mixin tablet() {
+    @media (max-width: v.$tablet) {
+        @content;  
+    }
+}
+
+@mixin phone() {
+    @media (max-width: v.$phone) {
+        @content;  
+    }
+}
+

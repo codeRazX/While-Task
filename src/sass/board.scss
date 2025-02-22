@@ -7,11 +7,17 @@
     margin-top: v.$margin * 2;
     height: auto;
     padding-bottom: 30rem;
+    position: relative;
 
     &__container{
+       
         display: grid;
         grid-template-columns: repeat(3,calc(40rem - 1.33rem));
         gap: 2rem;
+
+        @include m.desktop{
+            grid-template-columns: repeat(auto-fill, minmax(40rem,1fr));
+        }
         
     }
     &__pending,
@@ -44,7 +50,6 @@
 
 
     &__panel{
-        padding: 0 2rem 2rem 2rem;
         position: sticky;
         top: .5rem;  
         z-index: 100;
@@ -55,14 +60,15 @@
         background-color: v.$primaryColor;
         height: auto;
         display: flex;
-        flex-direction: column;
         align-items: center;
-        gap: 1rem;
+        gap: 2rem;
+        padding: 0 2rem 0 0;
 
-        @media (min-width: 1020px ){
-           flex-direction: row;
-           gap: 2rem;
-           padding: 0 2rem 0 0;
+        @include m.desktop{
+            flex-direction: column;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem;
         }
        
 
@@ -71,7 +77,18 @@
             button{
                 font-family: v.$primaryFont;
                 @include m.btn();
+
+                @include m.tablet{
+                 padding: 1rem;
+                }
+
+                @include m.phone{
+                padding: .5rem;
+                font-size: 1.7rem;
+                }
             }
+
+
         }
        
 
@@ -80,16 +97,15 @@
 
             &__form{
 
-                @include m.flex(space-between);
-                gap: 2rem;
-                
-                @media (min-width: 1020px ){
-                  gap: 0;
-                }
-
+                @include m.flex(space-between,2rem);
+           
                 img{
                     width: 2.5rem;
                     height: 2.5rem;
+
+                    @include m.phone{
+                     display: none;
+                    }
                 }
 
                 &__field{
@@ -116,6 +132,10 @@
                             font-weight: bold;
                             text-shadow: 0 0 5px #000;
                             box-shadow: 0 0 10px 2px #fff;
+                        }
+
+                        @include m.desktop{
+                            width: auto;  
                         }
                     }
                 }

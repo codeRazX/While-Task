@@ -1,5 +1,6 @@
 @use "variables" as v;
 @use "mixin" as m;
+
 .modal{
     @include m.modal(60rem,80rem,2rem);
    
@@ -49,11 +50,13 @@
                 border: 1px solid v.$colorWidget;
             }
            }
+
            input[type="date"]::-webkit-calendar-picker-indicator,
            input[type="time"]::-webkit-calendar-picker-indicator{
-            background-color: v.$colorWidget;
-            border-radius: 5px;
+                background-color: v.$colorWidget;
+                border-radius: 5px;
           }
+
             label{
                 font-weight: bold;
                 color: v.$colorLabel;
@@ -110,7 +113,6 @@
             
         }
     
-       
     }
 
 }
