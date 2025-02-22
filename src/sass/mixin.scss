@@ -8,6 +8,7 @@
 }
 
 @mixin modal($widht,$height, $padding){
+
     display: none;
     position: fixed;
     background-color: #fff;
@@ -26,6 +27,9 @@
     opacity: 0;
     animation: appear 300ms forwards ease-in-out, expand 400ms forwards ease-in-out;
     overflow-x: hidden;
+
+    
+  
 }
 
 @mixin btn(){

@@ -3,7 +3,12 @@
 
 .modal{
     @include m.modal(60rem,80rem,2rem);
-   
+    
+    @include m.phone{
+     height: 80%;
+     overflow-y: auto;
+     width: 90%;
+    }
     h2{
         color: #0e5035;
         text-align: center;

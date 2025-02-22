@@ -5,6 +5,10 @@
     @include m.modal(60rem,auto,2rem);
     padding-bottom: 6rem;
     
+    @include m.phone{
+        width: 90%;
+    }
+
     .form__edit{
         overflow-y: auto;
         height: auto;
